@@ -1,0 +1,177 @@
+﻿<html>
+	
+<head>
+	<title>Local Logging</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="generator" content="HelpNDoc Personal Edition 4.5.0.497">
+	<meta name="keywords" content="">
+	
+	<link type="text/css" rel="stylesheet" media="all" href="css/reset.css" />
+	<link type="text/css" rel="stylesheet" media="all" href="css/base.css" />
+	<link type="text/css" rel="stylesheet" media="all" href="css/hnd.css" />
+	<!--[if lte IE 8]>
+		<link type="text/css" rel="stylesheet" media="all" href="css/ielte8.css" />
+	<![endif]-->
+	<style type="text/css">
+		#topic_header
+		{
+			background-color: #EFEFEF;
+		}
+	</style>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/hnd.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function()
+		{
+			if (top.frames.length == 0)
+			{
+				var sTopicUrl = top.location.href.substring(top.location.href.lastIndexOf("/") + 1, top.location.href.length);
+				top.location.href = "EnGenius EWS Switch.html?" + sTopicUrl;
+			}
+			else if (top && top.FrameTOC && top.FrameTOC.SelectTocItem)
+			{
+				top.FrameTOC.SelectTocItem("LocalLogging");
+			}
+		});
+	</script>
+	
+	</head>
+
+<body>
+
+<div id="topic_header">
+			<div id="topic_header_content">
+				<h1 id="topic_header_text">Local Logging</h1>
+				
+				<div id="topic_breadcrumb">
+					<a href="UsingtheEWSSwitch.html">Using the EWS Switch</a> &rsaquo;&rsaquo; <a href="Monitoring.html">Monitoring</a> &rsaquo;&rsaquo; <a href="SystemLog.html">System Log</a> &rsaquo;&rsaquo; </div>
+				</div>
+			<div id="topic_header_nav">
+				<a href="SystemLog.html"><img src="img/arrow_up.png" alt="Parent"/></a>
+				
+				<a href="GlobalSettings.html"><img src="img/arrow_left.png" alt="Previous"/></a>
+				
+				<a href="RemoteLogging.html"><img src="img/arrow_right.png" alt="Next"/></a>
+				
+				</div>
+			<div class="clear"></div>
+		</div>
+	<div id="topic_content">
+		
+<p></p>
+<p class="rvps2"><span class="rvts13">Monitoring &gt; System Log &gt; Local Logging</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts6">The System Log is designed to monitor the operation of the EWS Switch by recording the event messages it generates during normal operation. These events may provide vital information about system activity that can help in the identification and solutions of system problems. The EWS Switch supports log output to two directions: Flash and RAM. The information stored in the system’s Flash log will be lost after the Switch is rebooted or powered off, whereas the information stored in the system’s RAM will be kept effective even if the Switch is rebooted or powered off. The log has a fixed capacity; at a certain level, the EWS Switch will start deleting the oldest entries to make room for the newest.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><img alt="" style="padding : 1px;" src="lib/NewItem29.png"/></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts14">Severity Level</span></p>
+<p class="rvps2"><span class="rvts6">RFC 5424 defines eight severity levels:</span></p>
+<div class="rvps2"><table width="100%" border="1" cellpadding="1" cellspacing="2" style="border-color: #000000; border-style: solid;">
+<tr valign="top">
+<td style="border-color: #000000; border-style: solid; width: 38px;"><p class="rvps2"><span class="rvts14">Code</span></p>
+</td>
+<td style="border-color: #000000; border-style: solid; width: 74px;"><p class="rvps2"><span class="rvts14">Severity</span></p>
+</td>
+<td style="border-color: #000000; border-style: solid; width: 219px;"><p class="rvps2"><span class="rvts14">Description</span></p>
+</td>
+<td style="border-color: #000000; border-style: solid; width: 710px;"><p class="rvps2"><span class="rvts14">General Description</span></p>
+</td>
+</tr>
+<tr valign="top">
+<td style="border-color: #000000; border-style: solid; width: 38px;"><p class="rvps2"><span class="rvts6">0</span></p>
+</td>
+<td style="border-color: #000000; border-style: solid; width: 74px;"><p class="rvps2"><span class="rvts6">EMERG</span></p>
+</td>
+<td style="border-color: #000000; border-style: solid; width: 219px;"><p class="rvps2"><span class="rvts6">System is unusable.</span></p>
+</td>
+<td style="border-color: #000000; border-style: solid; width: 710px;"><p class="rvps2"><span class="rvts6">A "panic" condition usually affecting multiple apps/servers/sites. At this level it would usually notify all tech staff on call.</span></p>
+</td>
+</tr>
+<tr valign="top">
+<td style="border-color: #000000; border-style: solid; width: 38px;"><p class="rvps2"><span class="rvts6">1</span></p>
+</td>
+<td style="border-color: #000000; border-style: solid; width: 74px;"><p class="rvps2"><span class="rvts6">ALERT</span></p>
+</td>
+<td style="border-color: #000000; border-style: solid; width: 219px;"><p class="rvps2"><span class="rvts6">Action must be taken immediately.</span></p>
+</td>
+<td style="border-color: #000000; border-style: solid; width: 710px;"><p class="rvps2"><span class="rvts6">Should be corrected immediately, therefore notify staff who can fix the problem. An example would be the loss of a primary ISP connection.</span></p>
+</td>
+</tr>
+<tr valign="top">
+<td style="border-color: #000000; border-style: solid; width: 38px;"><p class="rvps2"><span class="rvts6">2</span></p>
+</td>
+<td style="border-color: #000000; border-style: solid; width: 74px;"><p class="rvps2"><span class="rvts6">CRIT</span></p>
+</td>
+<td style="border-color: #000000; border-style: solid; width: 219px;"><p class="rvps2"><span class="rvts6">Critical conditions. </span></p>
+</td>
+<td style="border-color: #000000; border-style: solid; width: 710px;"><p class="rvps2"><span class="rvts6">Should be corrected immediately, but indicates failure in a secondary system, an example is a loss of a backup ISP connection.</span></p>
+</td>
+</tr>
+<tr valign="top">
+<td style="border-color: #000000; border-style: solid; width: 38px;"><p class="rvps2"><span class="rvts6">3</span></p>
+</td>
+<td style="border-color: #000000; border-style: solid; width: 74px;"><p class="rvps2"><span class="rvts6">ERROR</span></p>
+</td>
+<td style="border-color: #000000; border-style: solid; width: 219px;"><p class="rvps2"><span class="rvts6">Error conditions.</span></p>
+</td>
+<td style="border-color: #000000; border-style: solid; width: 710px;"><p class="rvps2"><span class="rvts6">Non-urgent failures, these should be relayed to developers or admins; each item must be resolved within a given time.</span></p>
+</td>
+</tr>
+<tr valign="top">
+<td style="border-color: #000000; border-style: solid; width: 38px;"><p class="rvps2"><span class="rvts6">4</span></p>
+</td>
+<td style="border-color: #000000; border-style: solid; width: 74px;"><p class="rvps2"><span class="rvts6">WARNING</span></p>
+</td>
+<td style="border-color: #000000; border-style: solid; width: 219px;"><p class="rvps2"><span class="rvts6">Warning conditions.</span></p>
+</td>
+<td style="border-color: #000000; border-style: solid; width: 710px;"><p class="rvps2"><span class="rvts6">Warning messages, not an error, but indication that an error will occur if action is not taken, e.g. file system 85% full - each item must be resolved within a given time. </span></p>
+</td>
+</tr>
+<tr valign="top">
+<td style="border-color: #000000; border-style: solid; width: 38px;"><p class="rvps2"><span class="rvts6">5</span></p>
+</td>
+<td style="border-color: #000000; border-style: solid; width: 74px;"><p class="rvps2"><span class="rvts6">NOTICE</span></p>
+</td>
+<td style="border-color: #000000; border-style: solid; width: 219px;"><p class="rvps2"><span class="rvts6">Normal but significant condition.</span></p>
+</td>
+<td style="border-color: #000000; border-style: solid; width: 710px;"><p class="rvps2"><span class="rvts6">Events that are unusual but not error conditions - might be summarized in an email to developers or admins to spot potential problems - no immediate action required.</span></p>
+</td>
+</tr>
+<tr valign="top">
+<td style="border-color: #000000; border-style: solid; width: 38px;"><p class="rvps2"><span class="rvts6">6</span></p>
+</td>
+<td style="border-color: #000000; border-style: solid; width: 74px;"><p class="rvps2"><span class="rvts6">INFO</span></p>
+</td>
+<td style="border-color: #000000; border-style: solid; width: 219px;"><p class="rvps2"><span class="rvts6">Informational messages.</span></p>
+</td>
+<td style="border-color: #000000; border-style: solid; width: 710px;"><p class="rvps2"><span class="rvts6">Normal operational messages - may be harvested for reporting, measuring throughput, etc. - no action required.</span></p>
+</td>
+</tr>
+<tr valign="top">
+<td style="border-color: #000000; border-style: solid; width: 38px;"><p class="rvps2"><span class="rvts6">7</span></p>
+</td>
+<td style="border-color: #000000; border-style: solid; width: 74px;"><p class="rvps2"><span class="rvts6">DEBUG</span></p>
+</td>
+<td style="border-color: #000000; border-style: solid; width: 219px;"><p class="rvps2"><span class="rvts6">Debug-level messages.</span></p>
+</td>
+<td style="border-color: #000000; border-style: solid; width: 710px;"><p class="rvps2"><span class="rvts6">Info useful to developers for debugging the application, not useful during operations.</span></p>
+</td>
+</tr>
+</table>
+</div>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p></p>
+<p class="rvps4"><span class="rvts11">Created with the Personal Edition of HelpNDoc: </span><a class="rvts12" href="http://www.helpndoc.com/feature-tour/iphone-website-generation">Create iPhone web-based documentation</a></p>
+</div>
+	
+	<div id="topic_footer">
+
+			<div id="topic_footer_content">
+				Copyright &copy; 2014 by EnGenius Networks. All Rights Reserved.</div>
+		</div>
+	</body>
+	
+</html>
+

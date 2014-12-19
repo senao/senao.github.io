@@ -1,0 +1,216 @@
+﻿<html>
+	
+<head>
+	<title>Access Points</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="generator" content="HelpNDoc Personal Edition 4.5.0.497">
+	<meta name="keywords" content="">
+	
+	<link type="text/css" rel="stylesheet" media="all" href="css/reset.css" />
+	<link type="text/css" rel="stylesheet" media="all" href="css/base.css" />
+	<link type="text/css" rel="stylesheet" media="all" href="css/hnd.css" />
+	<!--[if lte IE 8]>
+		<link type="text/css" rel="stylesheet" media="all" href="css/ielte8.css" />
+	<![endif]-->
+	<style type="text/css">
+		#topic_header
+		{
+			background-color: #EFEFEF;
+		}
+	</style>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/hnd.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function()
+		{
+			if (top.frames.length == 0)
+			{
+				var sTopicUrl = top.location.href.substring(top.location.href.lastIndexOf("/") + 1, top.location.href.length);
+				top.location.href = "EnGenius EWS Switch.html?" + sTopicUrl;
+			}
+			else if (top && top.FrameTOC && top.FrameTOC.SelectTocItem)
+			{
+				top.FrameTOC.SelectTocItem("AccessPoints");
+			}
+		});
+	</script>
+	
+	</head>
+
+<body>
+
+<div id="topic_header">
+			<div id="topic_header_content">
+				<h1 id="topic_header_text">Access Points</h1>
+				
+				<div id="topic_breadcrumb">
+					<a href="UsingtheEWSSwitch.html">Using the EWS Switch</a> &rsaquo;&rsaquo; <a href="DeviceManagement.html">Device Management</a> &rsaquo;&rsaquo; </div>
+				</div>
+			<div id="topic_header_nav">
+				<a href="DeviceManagement.html"><img src="img/arrow_up.png" alt="Parent"/></a>
+				
+				<a href="Summary.html"><img src="img/arrow_left.png" alt="Previous"/></a>
+				
+				<a href="WirelessSettings.html"><img src="img/arrow_right.png" alt="Next"/></a>
+				
+				</div>
+			<div class="clear"></div>
+		</div>
+	<div id="topic_content">
+		
+<p></p>
+<p class="rvps2"><span class="rvts13">Device Management &gt; Access Points</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts6">This page displays the status of all EWS Access Points that your Controller is currently managing as well as all the EWS Access Points in the network that the Controller has discovered. Use this page to add EWS Access Points to your EWS Controller Access Point list. For the discovery procedure to succeed, the EWS Switch and the EWS Access Point must be connected in the same network. The EWS Switch can discover supported EWS Access Points with any IP address and Subnet settings.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><img alt="" style="padding : 1px;" src="lib/NewItem3.png"/></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts14">Managing Access Points</span></p>
+<p class="rvps2"><span class="rvts6">EWS Access Points can either be configured individually or configured as a group within a cluster.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts6">To manage an Access Point individually, click on the </span><span class="rvts14">Device Name</span><span class="rvts6"> field of the Access Point you wish to configure and you will be directed to a screen where you can configure settings for the Access Point.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts6">To manage Access Points as a group, go to </span><span class="rvts14">Device Management &gt; AP Clusters</span><span class="rvts6"> to create a cluster and add members into the cluster. Click on the </span><span class="rvts14">Cluster </span><span class="rvts6">field of the cluster you wish to configure and you will be directed to a screen where you can configure settings for the Cluster.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts6">Cluster settings can be overridden by individual AP settings. For example, if you want to set the transmit power to a lower setting for only a few specific APs, leave the Transmit Power at Auto in the Wireless Radio Settings of the cluster, then click on the </span><span class="rvts14">Device Name</span><span class="rvts6"> field of the Access Point (which is already in a cluster) you wish to configure and you will be directed to a screen where you can configure override settings for the selected Access Point.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts14">Refresh Countdown Timer</span></p>
+<p class="rvps2"><span class="rvts6">This is the time left before the page auto-refreshes. The countdown is from 15 seconds.</span></p>
+<p class="rvps2"><img alt="" style="padding : 1px;" src="lib/2014-10-29_131149.jpg"/></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts14">Dashboard</span></p>
+<p class="rvps2"><span class="rvts6">The Dashboard shows the current status of all the EWS APs that has been managed by the EWS Switch.</span></p>
+<p class="rvps2"><img width="189" height="46" alt="" style="padding : 1px;" src="lib/2014-10-29_131342.jpg"/></p>
+<p class="rvps2"><span class="rvts6">Managed: This shows the number of APs in the managed AP database that are configured with the EWS Switch.</span></p>
+<p class="rvps2"><span class="rvts6">Active: This shows the number of managed APs that currently have an active connection with the EWS Switch.</span></p>
+<p class="rvps2"><span class="rvts6">Offline: This shows the number of managed APs that currently do not have an active connection with the EWS Switch.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts14">AP(s) Detected List</span></p>
+<p class="rvps2"><span class="rvts6">Reveals a list of all APs in the network that the EWS Switch automatically discovers. Mouse over the discovered Access Point to show general information such as the MAC address,</span></p>
+<p class="rvps2"><span class="rvts6">IP address, Model name and firmware version.</span></p>
+<p class="rvps2"><img width="84" height="40" alt="" style="padding : 1px;" src="lib/2014-10-29_131859.jpg"/></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts14">Remove AP</span></p>
+<p class="rvps2"><span class="rvts6">The Remove button removes selected Access Point(s) from list. Access Points removed will be automatically set to standalone mode with all settings restored to their factory default settings.</span></p>
+<p class="rvps2"><img alt="" style="padding : 1px;" src="lib/2014-10-29_132053.jpg"/></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts14">Reboot AP</span></p>
+<p class="rvps2"><span class="rvts6">The Reboot button will reboot the selected Access Point(s).</span></p>
+<p class="rvps2"><img alt="" style="padding : 1px;" src="lib/2014-10-29_132105.jpg"/></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts14">Search Bar</span></p>
+<p class="rvps2"><span class="rvts6">Use the Search Bar to search for Access Points managed by the EWS Switch using the following criteria: Status, model name, MAC Address, Device name, IP address, Firmware Version, Cluster.</span></p>
+<p class="rvps2"><img alt="" style="padding : 1px;" src="lib/2014-10-29_132120.jpg"/></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts14">Status</span></p>
+<p class="rvps2"><span class="rvts6">This indicates the current status of the managed Access Point.</span></p>
+<div class="rvps2"><table border="1" cellpadding="1" cellspacing="2" style="border-width: 0px;">
+<tr valign="top">
+<td style="border-width : 1px; border-color: #000000; border-style: solid; width: 158px;"><p class="rvps2"><span class="rvts6">Online</span></p>
+</td>
+<td style="border-width : 1px; border-color: #000000; border-style: solid; width: 808px;"><p class="rvps2"><span class="rvts6">AP is connected and managed by EWS Switch.</span></p>
+</td>
+</tr>
+<tr valign="top">
+<td style="border-width : 1px; border-color: #000000; border-style: solid; width: 158px;"><p class="rvps2"><span class="rvts6">Provisioning</span></p>
+</td>
+<td style="border-width : 1px; border-color: #000000; border-style: solid; width: 808px;"><p class="rvps2"><span class="rvts6">AP is currently in the process of connecting to the EWS Switch.</span></p>
+</td>
+</tr>
+<tr valign="top">
+<td style="border-width : 1px; border-color: #000000; border-style: solid; width: 158px;"><p class="rvps2"><span class="rvts6">Applying Change</span></p>
+</td>
+<td style="border-width : 1px; border-color: #000000; border-style: solid; width: 808px;"><p class="rvps2"><span class="rvts6">AP is currently applying system changes.</span></p>
+</td>
+</tr>
+<tr valign="top">
+<td style="border-width : 1px; border-color: #000000; border-style: solid; width: 158px;"><p class="rvps2"><span class="rvts6">Connecting</span></p>
+</td>
+<td style="border-width : 1px; border-color: #000000; border-style: solid; width: 808px;"><p class="rvps2"><span class="rvts6">AP is currently connecting to EWS Switch.</span></p>
+</td>
+</tr>
+<tr valign="top">
+<td style="border-width : 1px; border-color: #000000; border-style: solid; width: 158px;"><p class="rvps2"><span class="rvts6">Offline</span></p>
+</td>
+<td style="border-width : 1px; border-color: #000000; border-style: solid; width: 808px;"><p class="rvps2"><span class="rvts6">AP is currently offline.</span></p>
+</td>
+</tr>
+<tr valign="top">
+<td style="border-width : 1px; border-color: #000000; border-style: solid; width: 158px;"><p class="rvps2"><span class="rvts6">Resetting</span></p>
+</td>
+<td style="border-width : 1px; border-color: #000000; border-style: solid; width: 808px;"><p class="rvps2"><span class="rvts6">AP is resetting.</span></p>
+</td>
+</tr>
+<tr valign="top">
+<td style="border-width : 1px; border-color: #000000; border-style: solid; width: 158px;"><p class="rvps2"><span class="rvts6">Firmware Upgrading</span></p>
+</td>
+<td style="border-width : 1px; border-color: #000000; border-style: solid; width: 808px;"><p class="rvps2"><span class="rvts6">AP is currently undergoing firmware upgrade process.</span></p>
+</td>
+</tr>
+<tr valign="top">
+<td style="border-width : 1px; border-color: #000000; border-style: solid; width: 158px;"><p class="rvps2"><span class="rvts6">Invalid IP</span></p>
+</td>
+<td style="border-width : 1px; border-color: #000000; border-style: solid; width: 808px;"><p class="rvps2"><span class="rvts6">The subnet of managed AP’s IP address is not the same as the EWS Switch. Please remove AP and reconfigure AP to the correct setting.</span></p>
+</td>
+</tr>
+<tr valign="top">
+<td style="border-width : 1px; border-color: #000000; border-style: solid; width: 158px;"><p class="rvps2"><span class="rvts6">Incompatible Version</span></p>
+</td>
+<td style="border-width : 1px; border-color: #000000; border-style: solid; width: 808px;"><p class="rvps2"><span class="rvts6">AP firmware is not compatible with EWS Switch.</span></p>
+</td>
+</tr>
+<tr valign="top">
+<td style="border-width : 1px; border-color: #000000; border-style: solid; width: 158px;"><p class="rvps2"><span class="rvts6">Checking Certificate</span></p>
+</td>
+<td style="border-width : 1px; border-color: #000000; border-style: solid; width: 808px;"><p class="rvps2"><span class="rvts6">EWS Switch is checking the SSL Certificate of AP.</span></p>
+</td>
+</tr>
+</table>
+</div>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts14">Model Name</span></p>
+<p class="rvps2"><span class="rvts6">Shows the model name of the managed Access Point.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts14">MAC Address</span></p>
+<p class="rvps2"><span class="rvts6">Shows the MAC address of the managed Access Point.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts14">Device Name</span></p>
+<p class="rvps2"><span class="rvts6">Displays the device name of the managed Access Point. </span></p>
+<p class="rvps2"><span class="rvts6">When the AP is not a cluster member, click on this field and you’ll be redirected to the configuration page where you can edit settings such as device name, IP Address, Wireless Radio settings. </span></p>
+<p class="rvps2"><span class="rvts6">When the AP is a cluster member, &nbsp;click on this field to configure settings for individual Access Points by overriding the cluster settings.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts14">IP Address</span></p>
+<p class="rvps2"><span class="rvts6">Shows the IP address of the managed Access Point.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts14">Firmware Version</span></p>
+<p class="rvps2"><span class="rvts6">Shows the firmware version of the managed Access Point.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts14">Last Update</span></p>
+<p class="rvps2"><span class="rvts6">Display the time the Access Point was last detected and the information was last updated.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts14">Uptime: </span></p>
+<p class="rvps2"><span class="rvts6">Displays the number of days, hours, and minutes since the AP last restarted.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts14">Cluster</span></p>
+<p class="rvps2"><span class="rvts6">Displays the Cluster the Access Point is currently assigned to. Click on this field and you’ll be redirected to the cluster configuration page.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts14">Column Filter</span></p>
+<p class="rvps2"><span class="rvts6">Shows or hides fields in the Access Point list.</span></p>
+<p class="rvps2"><img alt="" style="padding : 1px;" src="lib/2014-10-29_183251.jpg"/></p>
+<p class="rvps2"><span class="rvts14"><br/></span></p>
+<p class="rvps2"><span class="rvts14"><br/></span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p></p>
+<p class="rvps4"><span class="rvts11">Created with the Personal Edition of HelpNDoc: </span><a class="rvts12" href="http://www.helpndoc.com/help-authoring-tool">Easy to use tool to create HTML Help files and Help web sites</a></p>
+</div>
+	
+	<div id="topic_footer">
+
+			<div id="topic_footer_content">
+				Copyright &copy; 2014 by EnGenius Networks. All Rights Reserved.</div>
+		</div>
+	</body>
+	
+</html>
+

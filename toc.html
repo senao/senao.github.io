@@ -1,0 +1,476 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+	<title>EnGenius EWS Switch- Table of Contents</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="generator" content="HelpNDoc Personal Edition 4.5.0.497">
+	<link type="text/css" rel="stylesheet" media="all" href="css/reset.css" />
+	<link type="text/css" rel="stylesheet" media="all" href="css/silver-theme/jquery-ui-1.8.12.custom.css" />
+	<link type="text/css" rel="stylesheet" media="all" href="css/dynatree/chm/ui.dynatree.css" />
+	<link type="text/css" rel="stylesheet" media="all" href="css/base.css" />
+	<link type="text/css" rel="stylesheet" media="all" href="css/hnd.css" />
+    <link type="text/css" rel="stylesheet" media="all" href="css/toc.css" />
+	<!--[if lte IE 8]>
+		<link type="text/css" rel="stylesheet" media="all" href="css/ielte8.css" />
+	<![endif]-->
+	<style type="text/css">
+		#tabs .ui-widget-header
+		{
+			background-color: #EFEFEF;
+		}
+	</style>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.8.17.custom.min.js"></script>
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="js/jquery.dynatree.min.js"></script>
+	<script type="text/javascript" src="js/hndjsse.js"></script>
+	<script type="text/javascript">
+	
+		window.bSearchDataLoaded = false;
+		var sHelpIdToActivate = '';
+	
+		$(document).ready(function()
+		{
+			var sAnchorName = '';
+			try { sAnchorName = top.location.href.substring(top.location.href.lastIndexOf("#") + 1, top.location.href.length); }
+			catch(err) { sAnchorName = ''; }
+			var nSelectedTab = 0;
+			if (sAnchorName == '_index') nSelectedTab = 1
+			else if (sAnchorName == '_search') nSelectedTab = 2;			
+			$("#tabs").tabs({
+				selected: nSelectedTab,
+				select: function(event, ui) { HideKwPopup(); }
+			});
+			
+			// Toc
+			if ($("#tab-toc").length) {
+				$("#tab-toc").dynatree({
+					clickFolderMode: 1,
+					debugLevel: 0,
+					imagePath: 'css/dynatree/chm/',
+					onActivate: function(node){
+						if ($("#tab-keywords").length && $("#tab-keywords").dynatree && $("#tab-keywords").dynatree("getTree") && $("#tab-keywords").dynatree("getTree").activateKey)
+							$("#tab-keywords").dynatree("getTree").activateKey(null);
+						if(node.data.href && node.data.href != '#'){
+							window.open(node.data.href, node.data.target);
+						}
+					}
+				});
+				// Expand all nodes if required
+				$("#tab-toc").dynatree("getRoot").visit(function(node){
+						node.expand(true);
+					});
+				// Select the active help id
+				if (sHelpIdToActivate != '') $("#tab-toc").dynatree("getTree").activateKey(sHelpIdToActivate);
+			}
+			
+			// Keywords
+			
+			if ($("#tab-keywords").length) {
+				$("#tab-keywords").dynatree({
+					clickFolderMode: 1,
+					debugLevel: 0,
+					imagePath: 'css/dynatree/chm/',
+					onClick: function(node, event){
+						HideKwPopup();
+						if (node.data && node.data.click)
+						{
+							var aRefList = null;
+							eval('aRefList=' + node.data.click);
+							if (ShowKwPopup(node.li, aRefList))
+							{
+								if ($("#tab-toc") && $("#tab-toc").dynatree && $("#tab-toc").dynatree("getTree") && $("#tab-toc").dynatree("getTree").activateKey)
+									$("#tab-toc").dynatree("getTree").activateKey(null);
+								if(node.data.href && node.data.href != '#'){
+									window.open(node.data.href, node.data.target);
+								}
+							}
+						}
+					}
+				});
+				// Expand all nodes if required
+				$("#tab-keywords").dynatree("getRoot").visit(function(node){
+						node.expand(true);
+					});
+				}
+			
+			// Load search data
+			(function() {
+				var se = document.createElement('script'); se.type = 'text/javascript'; se.async = true;
+				se.src = 'js/hndsd.js';
+				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(se, s);
+			})();
+		});
+		
+		$('body').click(function() {
+			HideKwPopup();
+		});
+		
+		function SelectTocItem(sHelpId)
+		{
+			if ($("#tab-toc").length && $("#tab-toc").dynatree && $("#tab-toc").dynatree("getTree") && $("#tab-toc").dynatree("getTree").getNodeByKey) {
+				$("#tab-toc").dynatree("getTree").getNodeByKey(sHelpId).activateSilently();
+			}
+			else {
+				sHelpIdToActivate = sHelpId;
+			}
+		}
+		
+		function HideKwPopup()
+		{
+			if($("#popupMenu")) $("#popupMenu").remove();
+		}
+		
+		function ShowKwPopup(oSender, aLinks)
+		{
+			HideKwPopup();
+			if (!aLinks || !aLinks.length || aLinks.length == 0) return false
+			else if (aLinks.length == 1) return true
+			else
+			{
+				var oParentDiv = document.createElement("DIV");
+				oParentDiv.id = "popupMenu";
+				var oLink = null;
+				// Close button
+				oLink = document.createElement("SPAN");
+				oLink.className = "close-button";
+				oLink.innerHTML = "X";
+				oLink.href = "#";
+				oLink.onclick = HideKwPopup;
+				oParentDiv.appendChild(oLink);
+				// Items
+				for (var nCnt=0; nCnt<aLinks.length; nCnt++)
+				{
+					oLink = document.createElement("A");
+					oLink.innerHTML = aLinks[nCnt][0];
+					oLink.href = aLinks[nCnt][1];
+					oLink.target = "FrameMain";
+					oLink.onclick = HideKwPopup;
+					oParentDiv.appendChild(oLink);
+				}
+				document.body.appendChild(oParentDiv);
+				var pos = $(oSender).offset(); 
+				var height = $(oSender).height();
+				$(oParentDiv).css({
+					"left": (pos.left+20) + "px",
+					"top": (pos.top + height + 5) + "px"
+				});
+				$(oParentDiv).show();
+				return false;
+			}
+		}
+		
+		function PerformSearch()
+		{
+			if (!window.bSearchDataLoaded) {
+				$("#search_results").html("Search engine data hasn't been fully loaded yet or an error occurred while loading it. This usually happens when documentation is browsed locally.");
+				return;
+			}
+			sValue = $("#search_value").val();
+			$("#search_results").html('Searching...');
+			var oSearchEngine = new HndJsSe;
+			oSearchEngine.ParseInput(sValue);			
+			oSearchEngine.PerformSearch();
+			if (!oSearchEngine.aResults || !oSearchEngine.aResults.length)
+			{
+				$("#search_results").html('No results found.');
+			}
+			else
+			{
+				$("#search_results").html('<div id="search_results_content"></div>');
+				var oUl = $("#search_results_content").append("<ul id='lr'></ul>").find("ul");
+				for (var nCnt = 0; nCnt < oSearchEngine.aResults.length; nCnt++)
+				{
+					if (oSearchEngine.aResults[nCnt][0] < aTl.length)
+					{
+						oUl.append("<li><a href='" + aTl[oSearchEngine.aResults[nCnt][0]][0] + "?search=" + escape(sValue) + "' target='FrameMain'>" + unescape(aTl[oSearchEngine.aResults[nCnt][0]][1]) + "</a></li>");
+					}
+				}
+				// Tree
+				$("#search_results_content").dynatree({
+					clickFolderMode: 1,
+					debugLevel: 0,
+					imagePath: 'css/dynatree/chm/',
+					onActivate: function(node){
+						if ($("#search_results_content") && $("#search_results_content").dynatree && $("#search_results_content").dynatree("getTree") && $("#search_results_content").dynatree("getTree").activateKey)
+							$("#search_results_content").dynatree("getTree").activateKey(null);
+						if(node.data.href && node.data.href != '#'){
+							window.open(node.data.href, node.data.target);
+						}
+					}
+				});
+			}
+		}
+	</script>
+</head>
+
+<body>
+
+	<div id="tabs">
+		<ul>
+			<li><a href="#tab-toc">Contents</a></li>
+			<li><a href="#tab-keywords">Index</a></li>
+			<li><a href="#tab-search">Search</a></li>
+			</ul>
+		<div id="tab-toc">
+			<ul id="toc" class="">
+
+				<li class="folder" id="Introduction" data="icon: '8.png'">
+							<a
+							href="Introduction.html"
+							target="FrameMain">
+								Introduction</a>
+
+				<ul><li class="" id="Overview" data="icon: '0.png'">
+							<a
+							href="Overview.html"
+							target="FrameMain">
+								Overview</a>
+
+				</li><li class="" id="InstallingtheEWSSwitch" data="icon: '0.png'">
+							<a
+							href="InstallingtheEWSSwitch.html"
+							target="FrameMain">
+								Installing the EWS Switch</a>
+
+				</li></ul></li><li class="folder" id="UsingtheEWSSwitch" data="icon: '0.png'">
+							<a
+							href="UsingtheEWSSwitch.html"
+							target="FrameMain">
+								Using the EWS Switch</a>
+
+				<ul><li class="" id="ManagingEWSAccessPoints" data="icon: '0.png'">
+							<a
+							href="ManagingEWSAccessPoints.html"
+							target="FrameMain">
+								Managing EWS Access Points</a>
+
+				</li><li class="folder" id="DeviceManagement" data="icon: '8.png'">
+							<a
+							href="DeviceManagement.html"
+							target="FrameMain">
+								Device Management</a>
+
+				<ul><li class="" id="Summary" data="icon: '0.png'">
+							<a
+							href="Summary.html"
+							target="FrameMain">
+								Summary</a>
+
+				</li><li class="folder" id="AccessPoints" data="icon: '0.png'">
+							<a
+							href="AccessPoints.html"
+							target="FrameMain">
+								Access Points</a>
+
+				<ul><li class="" id="WirelessSettings" data="icon: '0.png'">
+							<a
+							href="WirelessSettings.html"
+							target="FrameMain">
+								Wireless Settings</a>
+
+				</li></ul></li><li class="" id="ActiveClients" data="icon: '0.png'">
+							<a
+							href="ActiveClients.html"
+							target="FrameMain">
+								Active Clients</a>
+
+				</li><li class="" id="APClusters" data="icon: '0.png'">
+							<a
+							href="APClusters.html"
+							target="FrameMain">
+								AP Clusters</a>
+
+				</li><li class="" id="AccessControl" data="icon: '0.png'">
+							<a
+							href="AccessControl.html"
+							target="FrameMain">
+								Access Control</a>
+
+				</li><li class="" id="RogueAP" data="icon: '0.png'">
+							<a
+							href="RogueAP.html"
+							target="FrameMain">
+								Rogue AP</a>
+
+				</li></ul></li><li class="folder" id="VisualMonitoring" data="">
+							<a
+							href="VisualMonitoring.html"
+							target="FrameMain">
+								Visual Monitoring</a>
+
+				<ul><li class="" id="TopologyView" data="icon: '0.png'">
+							<a
+							href="TopologyView.html"
+							target="FrameMain">
+								Topology View</a>
+
+				</li><li class="" id="MapView" data="icon: '0.png'">
+							<a
+							href="MapView.html"
+							target="FrameMain">
+								Map View</a>
+
+				</li><li class="folder" id="FloorView" data="">
+							<a
+							href="FloorView.html"
+							target="FrameMain">
+								Floor View</a>
+
+				<ul><li class="" id="FloorplanImage" data="icon: '0.png'">
+							<a
+							href="FloorplanImage.html"
+							target="FrameMain">
+								Floorplan Image</a>
+
+				</li><li class="" id="FloorplanView" data="icon: '0.png'">
+							<a
+							href="FloorplanView.html"
+							target="FrameMain">
+								Floorplan View</a>
+
+				</li></ul></li></ul></li><li class="folder" id="Statistics" data="">
+							<a
+							href="Statistics.html"
+							target="FrameMain">
+								Statistics</a>
+
+				<ul><li class="" id="AccessPoints1" data="icon: '0.png'">
+							<a
+							href="AccessPoints1.html"
+							target="FrameMain">
+								Access Points</a>
+
+				</li><li class="" id="WirelessClients" data="icon: '0.png'">
+							<a
+							href="WirelessClients.html"
+							target="FrameMain">
+								Wireless Clients</a>
+
+				</li><li class="" id="ThroughputMonitoring" data="icon: '0.png'">
+							<a
+							href="ThroughputMonitoring.html"
+							target="FrameMain">
+								Throughput Monitoring</a>
+
+				</li></ul></li><li class="folder" id="Monitoring" data="">
+							<a
+							href="Monitoring.html"
+							target="FrameMain">
+								Monitoring</a>
+
+				<ul><li class="folder" id="EmailAlert" data="">
+							<a
+							href="EmailAlert.html"
+							target="FrameMain">
+								Email Alert</a>
+
+				<ul><li class="" id="AlertSettings" data="icon: '0.png'">
+							<a
+							href="AlertSettings.html"
+							target="FrameMain">
+								Alert Settings</a>
+
+				</li><li class="" id="EventBinding" data="icon: '0.png'">
+							<a
+							href="EventBinding.html"
+							target="FrameMain">
+								Event Binding</a>
+
+				</li></ul></li><li class="folder" id="SystemLog" data="">
+							<a
+							href="SystemLog.html"
+							target="FrameMain">
+								System Log</a>
+
+				<ul><li class="" id="GlobalSettings" data="icon: '0.png'">
+							<a
+							href="GlobalSettings.html"
+							target="FrameMain">
+								Global Settings</a>
+
+				</li><li class="" id="LocalLogging" data="icon: '0.png'">
+							<a
+							href="LocalLogging.html"
+							target="FrameMain">
+								Local Logging</a>
+
+				</li><li class="" id="RemoteLogging" data="icon: '0.png'">
+							<a
+							href="RemoteLogging.html"
+							target="FrameMain">
+								Remote Logging</a>
+
+				</li><li class="" id="EventLogs" data="icon: '0.png'">
+							<a
+							href="EventLogs.html"
+							target="FrameMain">
+								Event Logs</a>
+
+				</li></ul></li></ul></li><li class="folder" id="Maintenance" data="">
+							<a
+							href="Maintenance.html"
+							target="FrameMain">
+								Maintenance</a>
+
+				<ul><li class="" id="SSLCertificate" data="icon: '0.png'">
+							<a
+							href="SSLCertificate.html"
+							target="FrameMain">
+								SSL Certificate</a>
+
+				</li><li class="" id="Troubleshooting" data="icon: '0.png'">
+							<a
+							href="Troubleshooting.html"
+							target="FrameMain">
+								Troubleshooting</a>
+
+				</li><li class="" id="BulkUpgrade" data="icon: '0.png'">
+							<a
+							href="BulkUpgrade.html"
+							target="FrameMain">
+								Bulk Upgrade</a>
+
+				</li><li class="folder" id="OneClickUpdate" data="icon: '0.png'">
+							<a
+							href="OneClickUpdate.html"
+							target="FrameMain">
+								One-Click Update</a>
+
+				<ul><li class="" id="UpdateList" data="icon: '0.png'">
+							<a
+							href="UpdateList.html"
+							target="FrameMain">
+								Update List</a>
+
+				</li><li class="" id="UpdateSetting" data="icon: '0.png'">
+							<a
+							href="UpdateSetting.html"
+							target="FrameMain">
+								Update Setting</a>
+
+				</li></ul></li></ul></li></ul></li></ul>
+		</div>
+		
+		<div id="tab-keywords">
+			<ul id="keywords">
+
+				</ul>
+		</div>
+		
+		<div id="tab-search">
+			<form onsubmit="PerformSearch(); return false;">
+				<label for="search_value">Search:</label>
+				<input id="search_value" name="search_value"></input>
+				<input type="submit" value="Search"/>
+			</form>
+			<div id="search_results"></div>
+		</div>
+		
+		</div>
+    
+</body>
+
+</html>
+
