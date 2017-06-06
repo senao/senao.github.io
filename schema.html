@@ -1,0 +1,2121 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+<!DOCTYPE html>
+<html lang='en' xmlns='http://www.w3.org/1999/xhtml' >
+<head>
+<title>ezmcloud db schema</title>
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+<style type='text/css'>
+body {
+    font-family: 'Segoe UI', 'Lucida sans', Dialog;
+    font-size: 13px;
+    color: #444;
+    margin: 10px;
+    padding: 0;
+}
+
+table {
+    border-collapse: collapse;
+    caption-side: top;
+    width: auto;
+    margin: 10px 15px 5px 0;
+}
+
+
+.bordered td, .bordered th {
+   background-color: #fafafa;
+   border: 1px solid #D5D5D5;
+   padding: 3px 3px 3px 3px;
+   white-space:pre-wrap!important;
+}
+
+.bordered th {
+    background-color: #f0f0f0;
+    border: none;
+    border-bottom: 1px solid #cccccc;
+    padding: 3px 3px 3px 3px;
+    font-size: 13px;
+    font-weight: normal;
+    text-align: left;
+    color: #333333;
+}
+
+.section-header h2 {
+    background-color: #f0f0f0;
+    font-size: 16px;
+    font-weight: normal;
+    border-top: solid 1px #D5D5D5;
+    border-bottom: solid 1px #D5D5D5;
+    width: 95%;
+    margin: 5px 0 5px 0;
+    padding: 5px 0 5px 0;
+    color: #4d82b8;
+}
+.section-header div {
+    font-size: 70%;
+    padding-left: 5px;
+}
+
+
+a, a:visited, a:hover, a:active {
+  color: #044282;
+  text-decoration: none;
+}
+
+th > a {
+    color:#858585;
+}
+
+.lg {
+    font-size: 110%;
+}
+
+h1 {
+    font-family: Verdana,Arial,Helvetica;
+    font-weight: normal;
+    color: #4d82b8;
+    margin: 20px 0 10px 0;
+}
+
+</style>
+
+</head>
+
+<body>
+<div class='svg-container'>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' text-rendering='optimizeLegibility'   width='2544' height='2830' viewbox='0 0 2544 2830' >
+  <script type='text/ecmascript'>
+  <![CDATA[
+  function hghl(el) { for ( var i in el ){ document.getElementById(el[i]).setAttribute('class','highlight');  }  }
+  function uhghl(el) { for ( var i in el ){ document.getElementById(el[i]).setAttribute('class','scene'); }  } 
+  ]]>
+  </script> 
+
+<style type='text/css'>
+  text                { fill:#000000; font-family: PMingLiU, 'Trebuchet MS', Dialog; font-size:12px; }
+  a text:hover        { text-shadow: 0 0 6px #d0ce00; }
+  text.highlight      { text-shadow: 0 0 4px #eac533; }
+  text.colType        { fill:#b3b3b3; }
+  text.relName        { fill:#b09c7c; }
+  path                { stroke:#5c554f; stroke-width:1.15; fill:none; }
+  path.virtual        { stroke:#b7642d; }
+  path.dotted         { stroke-dasharray:4,2; }
+  path.scene          { stroke-width:10; opacity:0;}
+  path.highlight      { stroke-width:5; stroke:#eac533; opacity:0.6;}
+  rect.table          { fill:#ffffff; stroke:#aaa; stroke-width:1;shape-rendering:crispEdges;filter:url(#shadow); }
+  line.delim          { stroke-width:1; shape-rendering:crispEdges; }
+  text.callout        { fill:#000000; font-family: PMingLiU, 'Trebuchet MS', Dialog; font-size:12px; }
+  rect.callout        { fill:url(#calloutGradient); stroke:#bebdbd; stroke-width:0.5; filter: url(#shadow);}
+  rect.grp            { stroke:#b1b1b1; stroke-width:1.7; opacity:0.8; }
+</style>
+<defs>
+  <pattern id='layoutBgA' patternUnits='userSpaceOnUse'  width='10' height='20' x='0' y='0' viewBox='0 0 5 10'>  
+     <line x1='-2' y1='1' x2='7' y2='10' stroke='#efefef' stroke-width='.5'/>  
+     <line x1='-2' y1='6' x2='7' y2='15' stroke='#efefef' stroke-width='.5'/>  
+     <line x1='-2' y1='-4' x2='7' y2='5' stroke='#efefef' stroke-width='.5'/>  
+  </pattern>  
+  <radialGradient id='layoutBgB' gradientUnits='userSpaceOnUse' cx='50%' cy='50%' r='75%' fx='46%' fy='22%'>
+     <stop offset='0%' stop-opacity='.2' stop-color='#f5f5f5' />  
+     <stop offset='100%' stop-color='#efefef' />  
+  </radialGradient>
+  <pattern id='layoutBgTr' patternUnits='userSpaceOnUse'  width='300' height='300' x='0' y='0' viewBox='0 0 300 300'>  
+    <text x='-85' y='200' transform='rotate(-45)' style='font-family:Arial;font-size:78px;font-weight:bold;fill:#e7e7e7;'>&#84;&#82;&#73;&#65;&#76;</text> 
+    <text x='-130' y='230' transform='rotate(-45)' style='font-family:Arial;font-size:24px;font-weight:bold;fill:#e7e7e7;'>&#77;ove &#116;he m&#111;use &#111;ver &#116;ables</text> 
+    <text x='-85' y='250' transform='rotate(-45)' style='font-family:Arial;font-size:24px;font-weight:bold;fill:#e7e7e7;'>&#116;o re&#97;d &#116;he c&#111;mmen&#116;s</text> 
+  </pattern>  
+  <linearGradient id='groupUnderTitleLine' x1='0%' y1='0%' x2='100%' y2='0%' >
+          <stop offset='0%' stop-color='#999999' stop-opacity='0.7'/> 
+          <stop offset='100%' stop-color='#999999' stop-opacity='0' /> 
+   </linearGradient>
+  <radialGradient id='calloutGradient' cx='25%' cy='20%' r='80%' fx='10%' fy='10%'>
+	   <stop offset='0%' stop-color='#ffffff' />
+    <stop offset='100%' stop-color='#f8f6d1' />
+  </radialGradient>
+  <filter id='shadow' width='120%' height='120%'> 
+      <feOffset result='offOut' in='SourceGraphic' dx='1' dy='1' /> 
+      <feColorMatrix result='matrixOut' in='offOut' type='matrix' 
+      values='0.1 0 0 0 0 0 0.1 0 0 0 0 0 0.1 0 0 0 0 0 0.3 0' /> 
+      <feGaussianBlur result='blurOut' in='matrixOut' stdDeviation='3' /> 
+      <feBlend in='SourceGraphic' in2='blurOut' mode='normal' /> 
+    </filter> 
+  <filter id='fkShadow' height='130%'> 
+    <feGaussianBlur in='SourceAlpha' stdDeviation='1.5'/> <!-- stdDeviation is how much to blur -->
+    <feOffset dx='1.2' dy='1.2' result='offsetblur'/> <!-- how much to offset -->
+    <feMerge>
+    <feMergeNode/> <!-- this contains the offset blurred image -->
+    <feMergeNode in='SourceGraphic'/> <!-- this contains the element that the filter is applied to -->
+    </feMerge>
+  </filter>
+  <radialGradient id='legendGradient' fx='5%' fy='5%' r='75%' spreadMethod='pad'>
+          <stop offset='0%' stop-color='#eefbf2' stop-opacity='1'/> 
+          <stop offset='100%' stop-color='#cff9cb' stop-opacity='1' /> 
+   </radialGradient>
+  <symbol id='calloutArrowDown' overflow='visible' >
+      <path d='M 0,0 L 8,12 L 16,0 z' style='fill:#f8f6d1;stroke:none; filter: url(#shadow);' />
+      <path d='M 0,0 L 8,12 L 16,0' style='stroke:#bebdbd; stroke-width:0.5;' />
+  </symbol>
+  <symbol id='calloutArrowUp' overflow='visible' >
+      <path d='M 0,16 L 8,4 L 16,16 z' style='fill:#ffffff; stroke:none; filter: url(#shadow);' />
+      <path d='M 0,16 L 8,4 L 16,16' style='stroke:#bebdbd; stroke-width:0.5;' />
+  </symbol>
+  <symbol id='pk' overflow='visible' >
+    <g transform='scale(0.99)'>
+     <path style='fill:#fffa7d;stroke:#765f03;stroke-width:0.6;stroke-linecap:round;stroke-linejoin:round;'
+        d='M 9.3678877,3.5695485 C 9.1030218,3.2729386 9.0796382,2.7628519 9.3396185,2.4517097 9.5449651,2.1956495 9.9040386,2.0980533 10.199638,2.2169415 10.533525,2.3415459 10.775153,2.706942 10.750675,3.0842709 10.737029,3.3980003 10.541153,3.699122 10.258248,3.8066067 9.966649,3.9250429 9.6169668,3.8418805 9.4008073,3.6062324 9.3894892,3.5943518 9.3785264,3.582104 9.3678886,3.5695487 z M 11.226617,6.9916004 C 11.888137,6.3548946 12.293488,5.4172188 12.311087,4.442353 12.378144,2.7379364 11.248678,1.0541269 9.7322318,0.44767357 8.3887112,-0.1280313 6.7865012,0.26822889 5.8918395,1.4007929 5.080823,2.3839145 4.9336815,3.8452096 5.3635544,5.101615 L 4.3670905,5.315913 C 4.0664984,5.3682645 4.0967703,5.6316724 4.2574957,5.8208829 L 4.9124,6.5655244 4.1543436,7.2512357 3.2136002,7.2163506 3.1674775,8.5586827 2.0406832,8.5086512 1.5965306,8.9299953 1.5471661,10.179833 0.75616674,10.195223 0.2112857,10.758575 0.15354288,11.735988 0.07199052,12.765553 c 0.36440953,0.238225 0.79006967,0.195492 1.44938278,-0.02675 L 6.3033562,8.1282037 6.8217102,8.6765688 C 6.9985465,8.8799427 7.3003699,8.7497574 7.358381,8.5016252 L 7.4938877,7.5084164 c 0.8537488,0.3985387 1.8303125,0.4711541 2.6851793,0.1427713 0.393927,-0.1407258 0.746858,-0.3701772 1.04755,-0.6595873 z'/>
+     <path d='M 6.8014948,6.3102123 0.15369063,13.024481 0.21560535,12.141962 6.0062342,6.2683782 z'
+        style='fill:#ffe5a5;fill-opacity:1;stroke:#854e31;stroke-width:0.06912433;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:3.00300009'/>
+    </g>
+  </symbol>
+  <symbol id='unq' overflow='visible' >
+    <g transform='scale(0.99)'>
+      <rect style='fill:#fbea8e;stroke:#7e4d31;stroke-width:0.71934468;stroke-linecap:round;stroke-linejoin:round;'
+         width='2.29' height='8.43' x='7.48' y='-0.76' ry='1.14' transform='matrix(0.701,0.713,-0.727,0.685,0,0)' />
+      <path style='fill:white;stroke:#858585;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;'
+         d='m 26.04,8.64 a 4.13,4.13 0 1 1 -8.26,0 4.13,4.13 0 1 1 8.26,0 z'
+         transform='matrix(1.025,0,0,0.987,-14.690,-3.862)' />
+      <text x='5.8' y='7.4' style='font-size:7px;fill:#8a8a8a;'>1</text>
+    </g>
+  </symbol>
+  <symbol id='idx' overflow='visible' >
+    <g transform='scale(0.99)'>
+      <rect style='fill:#fbea8e;stroke:#7e4d31;stroke-width:0.71934468;stroke-linecap:round;stroke-linejoin:round;'
+         width='2.29' height='8.43' x='7.48' y='-0.76' ry='1.14' transform='matrix(0.701,0.713,-0.727,0.685,0,0)' />
+      <path style='fill:white;stroke:#858585;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;'
+         d='m 26.04,8.64 a 4.13,4.13 0 1 1 -8.26,0 4.13,4.13 0 1 1 8.26,0 z'
+         transform='matrix(1.025,0,0,0.987,-14.690,-3.862)' />
+    </g>
+  </symbol>
+  <symbol id='fk' overflow='visible' >
+    <g transform='scale(0.87)'>
+      <path style='fill:#f3e1b7;stroke:#7e471f;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;'
+      d='M 12.48,0.33 7.07,0.89 9.067,2.974 0.329,11.731 1.073,12.597 9.811,3.841 11.77,5.78 z' />
+    </g>
+  </symbol>
+  <symbol id='ref' overflow='visible' >
+    <g transform='scale(0.87)'>
+      <path style='fill:#f3e1b7;stroke:#7e471f;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;'
+          d='M 0.10,12.70 5.31,12.15 3.40,10.06 11.82,1.32 11.11,0.45 2.68,9.19 0.80,7.24 z'/>
+    </g>
+  </symbol>
+  <symbol id='flag0' overflow='visible' >
+    <g transform='scale(0.92)'>
+      <path style='fill:#b7d0f6;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;'
+          d='M 0.12,12.67 0.16,7.22 C 2.59,7.22 4.13,8.78 9.22,4.22 5.68,4.98 2.53,4.50 0.09,1.80 z'/>
+    </g>
+  </symbol>
+  <symbol id='flag1' overflow='visible' >
+    <g transform='scale(0.92)'>
+      <path style='fill:#f4a393;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;'
+          d='M 0.12,12.67 0.16,7.22 C 2.59,7.22 4.13,8.78 9.22,4.22 5.68,4.98 2.53,4.50 0.09,1.80 z'/>
+    </g>
+  </symbol>
+  <symbol id='flag2' overflow='visible' >
+    <g transform='scale(0.92)'>
+      <path style='fill:#77ec8b;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;'
+          d='M 0.12,12.67 0.16,7.22 C 2.59,7.22 4.13,8.78 9.22,4.22 5.68,4.98 2.53,4.50 0.09,1.80 z'/>
+    </g>
+  </symbol>
+  <symbol id='nn' overflow='visible' >
+  <path style='stroke:#9b3e50;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;'
+          d='M 0,0 3,3 M 0,3 3,0 z'/>
+  </symbol>
+  <symbol id='view' overflow='visible' >
+    <g transform='scale(0.99)'>
+     <line x1='12' y1='6' x2='19' y2='0' stroke='black' stroke-width='0.5' />
+     <line x1='0' y1='6' x2='7' y2='0' stroke='black' stroke-width='0.5' />
+     <circle cx='3' cy='6' r='3' fill='#f9ebbc' stroke='black' stroke-width='0.5'/>
+     <circle cx='10' cy='6' r='3' fill='#f9ebbc' stroke='black' stroke-width='0.5'/>
+    </g>
+  </symbol>
+  <marker id='arrow01' viewBox='0 0 16.00 8.00' refX='8.00' refY='4.00' markerUnits='strokeWidth' markerWidth='16.00' markerHeight='8.00' orient='auto'>
+    <path d='M 0.00,4.00 L 16.00,4.00 z' />
+  </marker>
+  <marker id='arrow1' viewBox='0 0 16.00 8.00' refX='8.00' refY='4.00' markerUnits='strokeWidth' markerWidth='16.00' markerHeight='8.00' orient='auto'>
+    <path d='M 0.00,4.00 L 16.00,4.00 z' />
+  </marker>
+  <marker id='foot01' viewBox='0 0 16.00 8.00' refX='8.00' refY='4.00' markerUnits='strokeWidth' markerWidth='16.00' markerHeight='8.00' orient='auto'>
+    <path d='M 1.60,4.00 L 3.20,4.00 L 4.80,4.00 L 6.40,4.00 z' />
+  </marker>
+  <marker id='foot0p' viewBox='0 0 16.00 8.00' refX='8.00' refY='4.00' markerUnits='strokeWidth' markerWidth='16.00' markerHeight='8.00' orient='auto'>
+    <path d='M 1.60,4.00 L 3.20,4.00 L 4.80,4.00 L 6.40,4.00 z' />
+    <path d='M 0.00,0.00 L 8.00,4.00 L 0.00,8.00' />
+  </marker>
+  <marker id='foot1' viewBox='0 0 16.00 8.00' refX='8.00' refY='4.00' markerUnits='strokeWidth' markerWidth='16.00' markerHeight='8.00' orient='auto'>
+    <path d='M 0.00,4.00 L 16.00,4.00 z' />
+  </marker>
+  <marker id='foot1p' viewBox='0 0 16.00 8.00' refX='8.00' refY='4.00' markerUnits='strokeWidth' markerWidth='16.00' markerHeight='8.00' orient='auto'>
+    <path d='M 0.00,4.00 L 16.00,4.00 z' />
+    <path d='M 0.00,0.00 L 8.00,4.00 L 0.00,8.00' />
+  </marker>
+  <linearGradient id='tbg_c8f5bf' x1='0%' y1='0%' x2='0%' y2='100%' >
+     <stop offset='0%' stop-color='#58a149' /> 
+     <stop offset='100%' stop-color='#30821f' /> 
+  </linearGradient>
+  <linearGradient id='tbg_bfd4f5' x1='0%' y1='0%' x2='0%' y2='100%' >
+     <stop offset='0%' stop-color='#496ba1' /> 
+     <stop offset='100%' stop-color='#1f4682' /> 
+  </linearGradient>
+  <linearGradient id='tbg_f5ddbf' x1='0%' y1='0%' x2='0%' y2='100%' >
+     <stop offset='0%' stop-color='#a17a49' /> 
+     <stop offset='100%' stop-color='#82561f' /> 
+  </linearGradient>
+  <linearGradient id='tbg_bfbff5' x1='0%' y1='0%' x2='0%' y2='100%' >
+     <stop offset='0%' stop-color='#4949a1' /> 
+     <stop offset='100%' stop-color='#1f1f82' /> 
+  </linearGradient>
+</defs>
+
+<!-- ============= Desktop ============= -->
+<rect x='1' y='1' width='2542' height='2828' rx='8' ry='8' style='fill:url(#layoutBgB); stroke:#333333; stroke-width:0.5;' />
+<rect x='1' y='1' width='2542' height='2828' rx='8' ry='8' style='fill:url(#layoutBgTr);' />
+<rect x='1' y='1' width='2542' height='2828' rx='8' ry='8' style='fill:url(#layoutBgA); stroke:#333333; stroke-width:0.5;' />
+
+<!-- ============= Legend ============= -->
+<g transform='translate(10,10)'>
+  <rect x='10' y='10' width='330' height='52' rx='6' ry='6' style='fill:url(#legendGradient);filter:url(#shadow);'/> 
+  <text x='65' y='33'>ezmcloud db schema</text> 
+  <text x='65' y='49' style='fill:#aaaaaa; font-size:11px;'><tspan>Read table &amp; column comments as mouse-over tooltips.</tspan></text> 
+<g transform="scale(0.75,0.75) translate(10,7)" > <a xlink:href='http://www.dbschema.com'> <rect style="fill:#eb7f2c;stroke:none;shape-rendering:geometricPrecision;" width="13.27" height="11.26" x="40.04" y="59.44" ry="3.14" transform="matrix(0.90187511,-0.43199686,0,1,0,0)" /> <rect style="fill:#2c49eb;stroke:none;shape-rendering:geometricPrecision;" width="13.27" height="11.26" x="54.83" y="59.57" ry="3.14" transform="matrix(0.90187511,-0.43199686,0,1,0,0)" /> <rect style="fill:#2c49eb;stroke:none;shape-rendering:geometricPrecision;" width="13.27" height="11.26" x="40.35" y="71.62" ry="3.14" transform="matrix(0.90187511,-0.43199686,0,1,0,0)" /> <rect style="fill:#2c49eb;stroke:none;shape-rendering:geometricPrecision;" width="13.27" height="11.26" x="54.68" y="71.75" ry="3.14" transform="matrix(0.90187511,-0.43199686,0,1,0,0)" /> <rect style="fill:#2c49eb;stroke:none;shape-rendering:geometricPrecision;" width="13.35" height="11.20" x="13.48" y="19.67" ry="3.12" transform="matrix(0.84723158,0.53122372,0,1,0,0)" /> <rect style="fill:#eb7f2c;stroke:none;shape-rendering:geometricPrecision;" width="13.35" height="11.20" x="28.36" y="19.80" ry="3.12" transform="matrix(0.84723158,0.53122372,0,1,0,0)" /> <rect style="fill:#2c49eb;stroke:none;shape-rendering:geometricPrecision;" width="13.35" height="11.20" x="13.79" y="31.78" ry="3.12" transform="matrix(0.84723158,0.53122372,0,1,0,0)" /> <rect style="fill:#2c49eb;stroke:none;shape-rendering:geometricPrecision;" width="13.35" height="11.20" x="28.21" y="31.92" ry="3.12" transform="matrix(0.84723158,0.53122372,0,1,0,0)" /> <rect style="fill:#2c49eb;stroke:none;shape-rendering:geometricPrecision;" width="13.49" height="14.24" x="34.59" y="-9.62" ry="3.97" transform="matrix(0.85815392,0.51339249,-0.91732703,0.39813455,0,0)" /> <rect style="fill:#2c49eb;stroke:none;shape-rendering:geometricPrecision;" width="13.49" height="14.24" x="49.63" y="-9.46" ry="3.97" transform="matrix(0.85815392,0.51339249,-0.91732703,0.39813455,0,0)" /> <rect style="fill:#2c49eb;stroke:none;shape-rendering:geometricPrecision;" width="13.49" height="14.24" x="34.90" y="5.77"  ry="3.97" transform="matrix(0.85815392,0.51339249,-0.91732703,0.39813455,0,0)" /> <rect style="fill:#eb7f2c;stroke:none;shape-rendering:geometricPrecision;" width="13.49" height="14.24" x="49.47" y="5.93"  ry="3.97" transform="matrix(0.85815392,0.51339249,-0.91732703,0.39813455,0,0)" /> <title>Generated using DbSchema - www.dbschema.com</title> </a></g>
+</g>
+
+<g transform='translate(0,110)'>
+<!-- ============= Group 'user' ============= -->
+<rect class='grp' style='fill:#ecf0f7;stroke:#535963' x='768' y='45' width='432' height='546' />
+<text x='780' y='61'>user</text>
+<rect style='fill:url(#groupUnderTitleLine); stroke-width:2;' x='780' y='65' width='408' height='2' />
+
+<!-- ============= Group 'org' ============= -->
+<rect class='grp' style='fill:#eef7ec;stroke:#566353' x='1264' y='45' width='1248' height='2610' />
+<text x='1276' y='61'>org</text>
+<rect style='fill:url(#groupUnderTitleLine); stroke-width:2;' x='1276' y='65' width='1224' height='2' />
+
+<!-- ============= Group 'fingerprint' ============= -->
+<rect class='grp' style='fill:#f7f3ec;stroke:#635d53' x='768' y='653' width='128' height='194' />
+<text x='780' y='669'>fingerprint</text>
+<rect style='fill:url(#groupUnderTitleLine); stroke-width:2;' x='780' y='673' width='104' height='2' />
+
+<!-- ============= Group 'device' ============= -->
+<rect class='grp' style='fill:#ececf7;stroke:#535363' x='32' y='653' width='672' height='466' />
+<text x='44' y='669'>device</text>
+<rect style='fill:url(#groupUnderTitleLine); stroke-width:2;' x='44' y='673' width='648' height='2' />
+
+<!-- ============= Fk 'license_JSon' ============= -->
+<path id='license_JSon'  onmouseover="hghl(['license_JSon','ezmcloud.org.license'])" onmouseout="uhghl(['license_JSon','ezmcloud.org.license'])" transform='translate(8,0)' class='scene' d='M 1424 1504 L 1368,1504 Q 1360,1504 1360,1512 L 1360,1552' >
+	<title>Fk JSon
+license ref org (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot1)' marker-end='url(#arrow1)'    d='M 1424 1504 L 1368,1504 Q 1360,1504 1360,1512 L 1360,1552' ></path>
+<text x='1427' y='1499' transform='rotate(0 1427,1499)' title='Fk JSon
+license ref org (  )' class='relName'></text>
+<!-- ============= Fk 'orgs_JSon' ============= -->
+<path id='orgs_JSon'  onmouseover="hghl(['orgs_JSon','ezmcloud.user.orgs'])" onmouseout="uhghl(['orgs_JSon','ezmcloud.user.orgs'])" transform='translate(8,0)' class='scene' d='M 928 352 L 880,352' >
+	<title>Fk JSon
+orgs ref user (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot0p)' marker-end='url(#arrow01)'  class='dotted '  d='M 928 352 L 880,352' ></path>
+<text x='931' y='347' transform='rotate(0 931,347)' title='Fk JSon
+orgs ref user (  )' class='relName'></text>
+<!-- ============= Fk 'networks_JSon' ============= -->
+<path id='networks_JSon'  onmouseover="hghl(['networks_JSon','ezmcloud.user.networks'])" onmouseout="uhghl(['networks_JSon','ezmcloud.user.networks'])" transform='translate(8,0)' class='scene' d='M 928 480 L 880,480' >
+	<title>Fk JSon
+networks ref user (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot0p)' marker-end='url(#arrow01)'  class='dotted '  d='M 928 480 L 880,480' ></path>
+<text x='931' y='475' transform='rotate(0 931,475)' title='Fk JSon
+networks ref user (  )' class='relName'></text>
+<!-- ============= Fk 'account_JSon' ============= -->
+<path id='account_JSon'  onmouseover="hghl(['account_JSon','ezmcloud.user.account'])" onmouseout="uhghl(['account_JSon','ezmcloud.user.account'])" transform='translate(8,0)' class='scene' d='M 928 272 L 856,272 Q 848,272 848,280 L 848,320' >
+	<title>Fk JSon
+account ref user (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot1)' marker-end='url(#arrow1)'    d='M 928 272 L 856,272 Q 848,272 848,280 L 848,320' ></path>
+<text x='931' y='267' transform='rotate(0 931,267)' title='Fk JSon
+account ref user (  )' class='relName'></text>
+<!-- ============= Fk 'name_JSon' ============= -->
+<path id='name_JSon'  onmouseover="hghl(['name_JSon','ezmcloud.user.name'])" onmouseout="uhghl(['name_JSon','ezmcloud.user.name'])" transform='translate(8,0)' class='scene' d='M 1072 224 L 1024,224' >
+	<title>Fk JSon
+name ref account (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot1)' marker-end='url(#arrow1)'    d='M 1072 224 L 1024,224' ></path>
+<text x='1075' y='219' transform='rotate(0 1075,219)' title='Fk JSon
+name ref account (  )' class='relName'></text>
+<!-- ============= Fk 'profiles_JSon' ============= -->
+<path id='profiles_JSon'  onmouseover="hghl(['profiles_JSon','ezmcloud.user.profiles'])" onmouseout="uhghl(['profiles_JSon','ezmcloud.user.profiles'])" transform='translate(8,0)' class='scene' d='M 928 144 L 872,144 Q 864,144 864,152 L 864,320' >
+	<title>Fk JSon
+profiles ref user (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot01)' marker-end='url(#arrow01)'  class='dotted '  d='M 928 144 L 872,144 Q 864,144 864,152 L 864,320' ></path>
+<text x='931' y='139' transform='rotate(0 931,139)' title='Fk JSon
+profiles ref user (  )' class='relName'></text>
+<!-- ============= Fk 'google_JSon' ============= -->
+<path id='google_JSon'  onmouseover="hghl(['google_JSon','ezmcloud.user.google'])" onmouseout="uhghl(['google_JSon','ezmcloud.user.google'])" transform='translate(8,0)' class='scene' d='M 1072 128 L 1024,128' >
+	<title>Fk JSon
+google ref profiles (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot01)' marker-end='url(#arrow01)'  class='dotted '  d='M 1072 128 L 1024,128' ></path>
+<text x='1075' y='123' transform='rotate(0 1075,123)' title='Fk JSon
+google ref profiles (  )' class='relName'></text>
+<!-- ============= Fk 'networks_JSon' ============= -->
+<path id='networks_JSon'  onmouseover="hghl(['networks_JSon','ezmcloud.org.networks'])" onmouseout="uhghl(['networks_JSon','ezmcloud.org.networks'])" transform='translate(8,0)' class='scene' d='M 1424 1584 L 1376,1584' >
+	<title>Fk JSon
+networks ref org (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot0p)' marker-end='url(#arrow01)'  class='dotted '  d='M 1424 1584 L 1376,1584' ></path>
+<text x='1427' y='1579' transform='rotate(0 1427,1579)' title='Fk JSon
+networks ref org (  )' class='relName'></text>
+<!-- ============= Fk 'lan_port_JSon' ============= -->
+<path id='lan_port_JSon'  onmouseover="hghl(['lan_port_JSon','ezmcloud.org.lan_port'])" onmouseout="uhghl(['lan_port_JSon','ezmcloud.org.lan_port'])" transform='translate(8,0)' class='scene' d='M 1776 1824 L 1720,1824 Q 1712,1824 1712,1816 L 1712,1808' >
+	<title>Fk JSon
+lan_port ref ap_cfg (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot0p)' marker-end='url(#arrow01)'  class='dotted '  d='M 1776 1824 L 1720,1824 Q 1712,1824 1712,1816 L 1712,1808' ></path>
+<text x='1779' y='1819' transform='rotate(0 1779,1819)' title='Fk JSon
+lan_port ref ap_cfg (  )' class='relName'></text>
+<!-- ============= Fk 'ap_cfg_JSon' ============= -->
+<path id='ap_cfg_JSon'  onmouseover="hghl(['ap_cfg_JSon','ezmcloud.org.ap_cfg'])" onmouseout="uhghl(['ap_cfg_JSon','ezmcloud.org.ap_cfg'])" transform='translate(8,0)' class='scene' d='M 1600 1600 L 1552,1600' >
+	<title>Fk JSon
+ap_cfg ref networks (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot01)' marker-end='url(#arrow01)'  class='dotted '  d='M 1600 1600 L 1552,1600' ></path>
+<text x='1603' y='1595' transform='rotate(0 1603,1595)' title='Fk JSon
+ap_cfg ref networks (  )' class='relName'></text>
+<!-- ============= Fk 'radio_JSon' ============= -->
+<path id='radio_JSon'  onmouseover="hghl(['radio_JSon','ezmcloud.org.radio'])" onmouseout="uhghl(['radio_JSon','ezmcloud.org.radio'])" transform='translate(8,0)' class='scene' d='M 1776 1584 L 1728,1584' >
+	<title>Fk JSon
+radio ref ap_cfg (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot0p)' marker-end='url(#arrow01)'  class='dotted '  d='M 1776 1584 L 1728,1584' ></path>
+<text x='1779' y='1579' transform='rotate(0 1779,1579)' title='Fk JSon
+radio ref ap_cfg (  )' class='relName'></text>
+<!-- ============= Fk 'wep_JSon' ============= -->
+<path id='wep_JSon'  onmouseover="hghl(['wep_JSon','ezmcloud.org.wep'])" onmouseout="uhghl(['wep_JSon','ezmcloud.org.wep'])" transform='translate(8,0)' class='scene' d='M 2128 1296 L 2120,1296 Q 2112,1296 2112,1304 L 2112,1592 Q 2112,1600 2104,1600 L 2080,1600' >
+	<title>Fk JSon
+wep ref wlan (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot01)' marker-end='url(#arrow01)'  class='dotted '  d='M 2128 1296 L 2120,1296 Q 2112,1296 2112,1304 L 2112,1592 Q 2112,1600 2104,1600 L 2080,1600' ></path>
+<text x='2131' y='1291' transform='rotate(0 2131,1291)' title='Fk JSon
+wep ref wlan (  )' class='relName'></text>
+<!-- ============= Fk 'floor_JSon' ============= -->
+<path id='floor_JSon'  onmouseover="hghl(['floor_JSon','ezmcloud.org.floor'])" onmouseout="uhghl(['floor_JSon','ezmcloud.org.floor'])" transform='translate(8,0)' class='scene' d='M 1744 1968 L 1672,1968 Q 1664,1968 1664,1960 L 1664,1936' >
+	<title>Fk JSon
+floor ref map (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot0p)' marker-end='url(#arrow01)'  class='dotted '  d='M 1744 1968 L 1672,1968 Q 1664,1968 1664,1960 L 1664,1936' ></path>
+<text x='1747' y='1963' transform='rotate(0 1747,1963)' title='Fk JSon
+floor ref map (  )' class='relName'></text>
+<!-- ============= Fk 'building_JSon' ============= -->
+<path id='building_JSon'  onmouseover="hghl(['building_JSon','ezmcloud.org.building'])" onmouseout="uhghl(['building_JSon','ezmcloud.org.building'])" transform='translate(8,0)' class='scene' d='M 1744 2320 L 1688,2320 Q 1680,2320 1680,2312 L 1680,1936' >
+	<title>Fk JSon
+building ref map (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot0p)' marker-end='url(#arrow01)'  class='dotted '  d='M 1744 2320 L 1688,2320 Q 1680,2320 1680,2312 L 1680,1936' ></path>
+<text x='1747' y='2315' transform='rotate(0 1747,2315)' title='Fk JSon
+building ref map (  )' class='relName'></text>
+<!-- ============= Fk 'floor_JSon' ============= -->
+<path id='floor_JSon'  onmouseover="hghl(['floor_JSon','ezmcloud.org.floor'])" onmouseout="uhghl(['floor_JSon','ezmcloud.org.floor'])" transform='translate(8,0)' class='scene' d='M 1904 2336 L 1856,2336' >
+	<title>Fk JSon
+floor ref building (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot0p)' marker-end='url(#arrow01)'  class='dotted '  d='M 1904 2336 L 1856,2336' ></path>
+<text x='1907' y='2331' transform='rotate(0 1907,2331)' title='Fk JSon
+floor ref building (  )' class='relName'></text>
+<!-- ============= Fk 'map_JSon' ============= -->
+<path id='map_JSon'  onmouseover="hghl(['map_JSon','ezmcloud.org.map'])" onmouseout="uhghl(['map_JSon','ezmcloud.org.map'])" transform='translate(8,0)' class='scene' d='M 1600 1840 L 1576,1840 Q 1568,1840 1568,1832 L 1568,1736 Q 1568,1728 1560,1728 L 1552,1728' >
+	<title>Fk JSon
+map ref networks (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot01)' marker-end='url(#arrow01)'  class='dotted '  d='M 1600 1840 L 1576,1840 Q 1568,1840 1568,1832 L 1568,1736 Q 1568,1728 1560,1728 L 1552,1728' ></path>
+<text x='1603' y='1835' transform='rotate(0 1603,1835)' title='Fk JSon
+map ref networks (  )' class='relName'></text>
+<!-- ============= Fk 'system_JSon' ============= -->
+<path id='system_JSon'  onmouseover="hghl(['system_JSon','ezmcloud.org.system'])" onmouseout="uhghl(['system_JSon','ezmcloud.org.system'])" transform='translate(8,0)' class='scene' d='M 1744 1424 L 1696,1424' >
+	<title>Fk JSon
+system ref switch_cfg (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot01)' marker-end='url(#arrow01)'  class='dotted '  d='M 1744 1424 L 1696,1424' ></path>
+<text x='1747' y='1419' transform='rotate(0 1747,1419)' title='Fk JSon
+system ref switch_cfg (  )' class='relName'></text>
+<!-- ============= Fk 'cos_JSon' ============= -->
+<path id='cos_JSon'  onmouseover="hghl(['cos_JSon','ezmcloud.org.cos'])" onmouseout="uhghl(['cos_JSon','ezmcloud.org.cos'])" transform='translate(8,0)' class='scene' d='M 1936 464 L 1880,464 Q 1872,464 1872,472 L 1872,1136' >
+	<title>Fk JSon
+cos ref qos (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot0p)' marker-end='url(#arrow01)'  class='dotted '  d='M 1936 464 L 1880,464 Q 1872,464 1872,472 L 1872,1136' ></path>
+<text x='1939' y='459' transform='rotate(0 1939,459)' title='Fk JSon
+cos ref qos (  )' class='relName'></text>
+<!-- ============= Fk 'dscp_JSon' ============= -->
+<path id='dscp_JSon'  onmouseover="hghl(['dscp_JSon','ezmcloud.org.dscp'])" onmouseout="uhghl(['dscp_JSon','ezmcloud.org.dscp'])" transform='translate(8,0)' class='scene' d='M 1936 576 L 1864,576 Q 1856,576 1856,584 L 1856,1136' >
+	<title>Fk JSon
+dscp ref qos (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot0p)' marker-end='url(#arrow01)'  class='dotted '  d='M 1936 576 L 1864,576 Q 1856,576 1856,584 L 1856,1136' ></path>
+<text x='1939' y='571' transform='rotate(0 1939,571)' title='Fk JSon
+dscp ref qos (  )' class='relName'></text>
+<!-- ============= Fk 'mac_ace_JSon' ============= -->
+<path id='mac_ace_JSon'  onmouseover="hghl(['mac_ace_JSon','ezmcloud.org.mac_ace'])" onmouseout="uhghl(['mac_ace_JSon','ezmcloud.org.mac_ace'])" transform='translate(8,0)' class='scene' d='M 1888 784 L 1704,784 Q 1696,784 1696,792 L 1696,1016 Q 1696,1024 1704,1024 L 1744,1024' >
+	<title>Fk JSon
+mac_ace ref acl (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot0p)' marker-end='url(#arrow01)'  class='dotted '  d='M 1888 784 L 1704,784 Q 1696,784 1696,792 L 1696,1016 Q 1696,1024 1704,1024 L 1744,1024' ></path>
+<text x='1891' y='779' transform='rotate(0 1891,779)' title='Fk JSon
+mac_ace ref acl (  )' class='relName'></text>
+<!-- ============= Fk 'ipv4_acl_JSon' ============= -->
+<path id='ipv4_acl_JSon'  onmouseover="hghl(['ipv4_acl_JSon','ezmcloud.org.ipv4_acl'])" onmouseout="uhghl(['ipv4_acl_JSon','ezmcloud.org.ipv4_acl'])" transform='translate(8,0)' class='scene' d='M 1888 688 L 1736,688 Q 1728,688 1728,696 L 1728,1000 Q 1728,1008 1736,1008 L 1744,1008' >
+	<title>Fk JSon
+ipv4_acl ref acl (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot0p)' marker-end='url(#arrow01)'  class='dotted '  d='M 1888 688 L 1736,688 Q 1728,688 1728,696 L 1728,1000 Q 1728,1008 1736,1008 L 1744,1008' ></path>
+<text x='1891' y='683' transform='rotate(0 1891,683)' title='Fk JSon
+ipv4_acl ref acl (  )' class='relName'></text>
+<!-- ============= Fk 'acl_JSon' ============= -->
+<path id='acl_JSon'  onmouseover="hghl(['acl_JSon','ezmcloud.org.acl'])" onmouseout="uhghl(['acl_JSon','ezmcloud.org.acl'])" transform='translate(8,0)' class='scene' d='M 1744 1088 L 1656,1088 Q 1648,1088 1648,1096 L 1648,1392' >
+	<title>Fk JSon
+acl ref switch_cfg (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot01)' marker-end='url(#arrow01)'  class='dotted '  d='M 1744 1088 L 1656,1088 Q 1648,1088 1648,1096 L 1648,1392' ></path>
+<text x='1747' y='1083' transform='rotate(0 1747,1083)' title='Fk JSon
+acl ref switch_cfg (  )' class='relName'></text>
+<!-- ============= Fk 'ipv4_ace_JSon' ============= -->
+<path id='ipv4_ace_JSon'  onmouseover="hghl(['ipv4_ace_JSon','ezmcloud.org.ipv4_ace'])" onmouseout="uhghl(['ipv4_ace_JSon','ezmcloud.org.ipv4_ace'])" transform='translate(8,0)' class='scene' d='M 1888 1024 L 1840,1024' >
+	<title>Fk JSon
+ipv4_ace ref acl (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot0p)' marker-end='url(#arrow01)'  class='dotted '  d='M 1888 1024 L 1840,1024' ></path>
+<text x='1891' y='1019' transform='rotate(0 1891,1019)' title='Fk JSon
+ipv4_ace ref acl (  )' class='relName'></text>
+<!-- ============= Fk 'settings_JSon' ============= -->
+<path id='settings_JSon'  onmouseover="hghl(['settings_JSon','ezmcloud.org.settings'])" onmouseout="uhghl(['settings_JSon','ezmcloud.org.settings'])" transform='translate(8,0)' class='scene' d='M 1888 352 L 1720,352 Q 1712,352 1712,360 L 1712,904 Q 1712,912 1720,912 L 1744,912' >
+	<title>Fk JSon
+settings ref lldp (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot01)' marker-end='url(#arrow01)'  class='dotted '  d='M 1888 352 L 1720,352 Q 1712,352 1712,360 L 1712,904 Q 1712,912 1720,912 L 1744,912' ></path>
+<text x='1891' y='347' transform='rotate(0 1891,347)' title='Fk JSon
+settings ref lldp (  )' class='relName'></text>
+<!-- ============= Fk 'vlan_JSon' ============= -->
+<path id='vlan_JSon'  onmouseover="hghl(['vlan_JSon','ezmcloud.org.vlan'])" onmouseout="uhghl(['vlan_JSon','ezmcloud.org.vlan'])" transform='translate(8,0)' class='scene' d='M 1744 848 L 1672,848 Q 1664,848 1664,856 L 1664,1392' >
+	<title>Fk JSon
+vlan ref switch_cfg (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot01)' marker-end='url(#arrow01)'  class='dotted '  d='M 1744 848 L 1672,848 Q 1664,848 1664,856 L 1664,1392' ></path>
+<text x='1747' y='843' transform='rotate(0 1747,843)' title='Fk JSon
+vlan ref switch_cfg (  )' class='relName'></text>
+<!-- ============= Fk 'voice_JSon' ============= -->
+<path id='voice_JSon'  onmouseover="hghl(['voice_JSon','ezmcloud.org.voice'])" onmouseout="uhghl(['voice_JSon','ezmcloud.org.voice'])" transform='translate(8,0)' class='scene' d='M 1872 192 L 1816,192 Q 1808,192 1808,200 L 1808,800' >
+	<title>Fk JSon
+voice ref vlan (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot01)' marker-end='url(#arrow01)'  class='dotted '  d='M 1872 192 L 1816,192 Q 1808,192 1808,200 L 1808,800' ></path>
+<text x='1875' y='187' transform='rotate(0 1875,187)' title='Fk JSon
+voice ref vlan (  )' class='relName'></text>
+<!-- ============= Fk 'oui_JSon' ============= -->
+<path id='oui_JSon'  onmouseover="hghl(['oui_JSon','ezmcloud.org.oui'])" onmouseout="uhghl(['oui_JSon','ezmcloud.org.oui'])" transform='translate(8,0)' class='scene' d='M 2032 96 L 1984,96' >
+	<title>Fk JSon
+oui ref voice (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot0p)' marker-end='url(#arrow01)'  class='dotted '  d='M 2032 96 L 1984,96' ></path>
+<text x='2035' y='91' transform='rotate(0 2035,91)' title='Fk JSon
+oui ref voice (  )' class='relName'></text>
+<!-- ============= Fk 'radius_JSon' ============= -->
+<path id='radius_JSon'  onmouseover="hghl(['radius_JSon','ezmcloud.org.radius'])" onmouseout="uhghl(['radius_JSon','ezmcloud.org.radius'])" transform='translate(8,0)' class='scene' d='M 2304 1376 L 2256,1376' >
+	<title>Fk JSon
+radius ref wpa (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot01)' marker-end='url(#arrow01)'  class='dotted '  d='M 2304 1376 L 2256,1376' ></path>
+<text x='2307' y='1371' transform='rotate(0 2307,1371)' title='Fk JSon
+radius ref wpa (  )' class='relName'></text>
+<!-- ============= Fk 'ssid_JSon' ============= -->
+<path id='ssid_JSon'  onmouseover="hghl(['ssid_JSon','ezmcloud.org.ssid'])" onmouseout="uhghl(['ssid_JSon','ezmcloud.org.ssid'])" transform='translate(8,0)' class='scene' d='M 2128 1504 L 2040,1504 Q 2032,1504 2032,1512 L 2032,1552' >
+	<title>Fk JSon
+ssid ref wlan (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot0p)' marker-end='url(#arrow01)'  class='dotted '  d='M 2128 1504 L 2040,1504 Q 2032,1504 2032,1512 L 2032,1552' ></path>
+<text x='2131' y='1499' transform='rotate(0 2131,1499)' title='Fk JSon
+ssid ref wlan (  )' class='relName'></text>
+<!-- ============= Fk 'portal_JSon' ============= -->
+<path id='portal_JSon'  onmouseover="hghl(['portal_JSon','ezmcloud.org.portal'])" onmouseout="uhghl(['portal_JSon','ezmcloud.org.portal'])" transform='translate(8,0)' class='scene' d='M 2128 1616 L 2080,1616' >
+	<title>Fk JSon
+portal ref wlan (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot01)' marker-end='url(#arrow01)'  class='dotted '  d='M 2128 1616 L 2080,1616' ></path>
+<text x='2131' y='1611' transform='rotate(0 2131,1611)' title='Fk JSon
+portal ref wlan (  )' class='relName'></text>
+<!-- ============= Fk 'inventory_JSon' ============= -->
+<path id='inventory_JSon'  onmouseover="hghl(['inventory_JSon','ezmcloud.org.inventory'])" onmouseout="uhghl(['inventory_JSon','ezmcloud.org.inventory'])" transform='translate(8,0)' class='scene' d='M 1424 1776 L 1376,1776' >
+	<title>Fk JSon
+inventory ref org (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot0p)' marker-end='url(#arrow01)'  class='dotted '  d='M 1424 1776 L 1376,1776' ></path>
+<text x='1427' y='1771' transform='rotate(0 1427,1771)' title='Fk JSon
+inventory ref org (  )' class='relName'></text>
+<!-- ============= Fk 'lldp_JSon' ============= -->
+<path id='lldp_JSon'  onmouseover="hghl(['lldp_JSon','ezmcloud.org.lldp'])" onmouseout="uhghl(['lldp_JSon','ezmcloud.org.lldp'])" transform='translate(8,0)' class='scene' d='M 1744 944 L 1688,944 Q 1680,944 1680,952 L 1680,1392' >
+	<title>Fk JSon
+lldp ref switch_cfg (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot01)' marker-end='url(#arrow01)'  class='dotted '  d='M 1744 944 L 1688,944 Q 1680,944 1680,952 L 1680,1392' ></path>
+<text x='1747' y='939' transform='rotate(0 1747,939)' title='Fk JSon
+lldp ref switch_cfg (  )' class='relName'></text>
+<!-- ============= Fk 'nas_JSon' ============= -->
+<path id='nas_JSon'  onmouseover="hghl(['nas_JSon','ezmcloud.org.nas'])" onmouseout="uhghl(['nas_JSon','ezmcloud.org.nas'])" transform='translate(8,0)' class='scene' d='M 2128 2048 L 2056,2048 Q 2048,2048 2048,2040 L 2048,1904' >
+	<title>Fk JSon
+nas ref wlan (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot01)' marker-end='url(#arrow01)'  class='dotted '  d='M 2128 2048 L 2056,2048 Q 2048,2048 2048,2040 L 2048,1904' ></path>
+<text x='2131' y='2043' transform='rotate(0 2131,2043)' title='Fk JSon
+nas ref wlan (  )' class='relName'></text>
+<!-- ============= Fk 'wpa_JSon' ============= -->
+<path id='wpa_JSon'  onmouseover="hghl(['wpa_JSon','ezmcloud.org.wpa'])" onmouseout="uhghl(['wpa_JSon','ezmcloud.org.wpa'])" transform='translate(8,0)' class='scene' d='M 2128 1424 L 2056,1424 Q 2048,1424 2048,1432 L 2048,1552' >
+	<title>Fk JSon
+wpa ref wlan (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot01)' marker-end='url(#arrow01)'  class='dotted '  d='M 2128 1424 L 2056,1424 Q 2048,1424 2048,1432 L 2048,1552' ></path>
+<text x='2131' y='1419' transform='rotate(0 2131,1419)' title='Fk JSon
+wpa ref wlan (  )' class='relName'></text>
+<!-- ============= Fk 'acc_JSon' ============= -->
+<path id='acc_JSon'  onmouseover="hghl(['acc_JSon','ezmcloud.org.acc'])" onmouseout="uhghl(['acc_JSon','ezmcloud.org.acc'])" transform='translate(8,0)' class='scene' d='M 2128 1136 L 2088,1136 Q 2080,1136 2080,1144 L 2080,1528 Q 2080,1536 2072,1536 L 2072,1536 Q 2064,1536 2064,1544 L 2064,1552' >
+	<title>Fk JSon
+acc ref wlan (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot01)' marker-end='url(#arrow01)'  class='dotted '  d='M 2128 1136 L 2088,1136 Q 2080,1136 2080,1144 L 2080,1528 Q 2080,1536 2072,1536 L 2072,1536 Q 2064,1536 2064,1544 L 2064,1552' ></path>
+<text x='2131' y='1131' transform='rotate(0 2131,1131)' title='Fk JSon
+acc ref wlan (  )' class='relName'></text>
+<!-- ============= Fk 'wlan_JSon' ============= -->
+<path id='wlan_JSon'  onmouseover="hghl(['wlan_JSon','ezmcloud.org.wlan'])" onmouseout="uhghl(['wlan_JSon','ezmcloud.org.wlan'])" transform='translate(8,0)' class='scene' d='M 1952 1584 L 1904,1584' >
+	<title>Fk JSon
+wlan ref radio (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot0p)' marker-end='url(#arrow01)'  class='dotted '  d='M 1952 1584 L 1904,1584' ></path>
+<text x='1955' y='1579' transform='rotate(0 1955,1579)' title='Fk JSon
+wlan ref radio (  )' class='relName'></text>
+<!-- ============= Fk 'roaming_JSon' ============= -->
+<path id='roaming_JSon'  onmouseover="hghl(['roaming_JSon','ezmcloud.org.roaming'])" onmouseout="uhghl(['roaming_JSon','ezmcloud.org.roaming'])" transform='translate(8,0)' class='scene' d='M 2128 2224 L 2072,2224 Q 2064,2224 2064,2216 L 2064,1904' >
+	<title>Fk JSon
+roaming ref wlan (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot01)' marker-end='url(#arrow01)'  class='dotted '  d='M 2128 2224 L 2072,2224 Q 2064,2224 2064,2216 L 2064,1904' ></path>
+<text x='2131' y='2219' transform='rotate(0 2131,2219)' title='Fk JSon
+roaming ref wlan (  )' class='relName'></text>
+<!-- ============= Fk 'scheduling_JSon' ============= -->
+<path id='scheduling_JSon'  onmouseover="hghl(['scheduling_JSon','ezmcloud.org.scheduling'])" onmouseout="uhghl(['scheduling_JSon','ezmcloud.org.scheduling'])" transform='translate(8,0)' class='scene' d='M 2128 976 L 2104,976 Q 2096,976 2096,984 L 2096,1576 Q 2096,1584 2088,1584 L 2080,1584' >
+	<title>Fk JSon
+scheduling ref wlan (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot01)' marker-end='url(#arrow01)'  class='dotted '  d='M 2128 976 L 2104,976 Q 2096,976 2096,984 L 2096,1576 Q 2096,1584 2088,1584 L 2080,1584' ></path>
+<text x='2131' y='971' transform='rotate(0 2131,971)' title='Fk JSon
+scheduling ref wlan (  )' class='relName'></text>
+<!-- ============= Fk 'days_JSon' ============= -->
+<path id='days_JSon'  onmouseover="hghl(['days_JSon','ezmcloud.org.days'])" onmouseout="uhghl(['days_JSon','ezmcloud.org.days'])" transform='translate(8,0)' class='scene' d='M 2256 944 L 2208,944' >
+	<title>Fk JSon
+days ref scheduling (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot01)' marker-end='url(#arrow01)'  class='dotted '  d='M 2256 944 L 2208,944' ></path>
+<text x='2259' y='939' transform='rotate(0 2259,939)' title='Fk JSon
+days ref scheduling (  )' class='relName'></text>
+<!-- ============= Fk 'sunday_JSon' ============= -->
+<path id='sunday_JSon'  onmouseover="hghl(['sunday_JSon','ezmcloud.org.sunday'])" onmouseout="uhghl(['sunday_JSon','ezmcloud.org.sunday'])" transform='translate(8,0)' class='scene' d='M 2416 944 L 2368,944' >
+	<title>Fk JSon
+sunday ref days (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot01)' marker-end='url(#arrow01)'  class='dotted '  d='M 2416 944 L 2368,944' ></path>
+<text x='2419' y='939' transform='rotate(0 2419,939)' title='Fk JSon
+sunday ref days (  )' class='relName'></text>
+<!-- ============= Fk 'qos_JSon' ============= -->
+<path id='qos_JSon'  onmouseover="hghl(['qos_JSon','ezmcloud.org.qos'])" onmouseout="uhghl(['qos_JSon','ezmcloud.org.qos'])" transform='translate(8,0)' class='scene' d='M 1744 1248 L 1640,1248 Q 1632,1248 1632,1256 L 1632,1392' >
+	<title>Fk JSon
+qos ref switch_cfg (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot01)' marker-end='url(#arrow01)'  class='dotted '  d='M 1744 1248 L 1640,1248 Q 1632,1248 1632,1256 L 1632,1392' ></path>
+<text x='1747' y='1243' transform='rotate(0 1747,1243)' title='Fk JSon
+qos ref switch_cfg (  )' class='relName'></text>
+<!-- ============= Fk 'switch_cfg_JSon' ============= -->
+<path id='switch_cfg_JSon'  onmouseover="hghl(['switch_cfg_JSon','ezmcloud.org.switch_cfg'])" onmouseout="uhghl(['switch_cfg_JSon','ezmcloud.org.switch_cfg'])" transform='translate(8,0)' class='scene' d='M 1600 1504 L 1576,1504 Q 1568,1504 1568,1512 L 1568,1576 Q 1568,1584 1560,1584 L 1552,1584' >
+	<title>Fk JSon
+switch_cfg ref networks (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot01)' marker-end='url(#arrow01)'  class='dotted '  d='M 1600 1504 L 1576,1504 Q 1568,1504 1568,1512 L 1568,1576 Q 1568,1584 1560,1584 L 1552,1584' ></path>
+<text x='1603' y='1499' transform='rotate(0 1603,1499)' title='Fk JSon
+switch_cfg ref networks (  )' class='relName'></text>
+<!-- ============= Fk 'override_JSon' ============= -->
+<path id='override_JSon'  onmouseover="hghl(['override_JSon','ezmcloud.device.override'])" onmouseout="uhghl(['override_JSon','ezmcloud.device.override'])" transform='translate(8,0)' class='scene' d='M 384 720 L 328,720 Q 320,720 320,728 L 320,768' >
+	<title>Fk JSon
+override ref ap (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot1)' marker-end='url(#arrow1)'    d='M 384 720 L 328,720 Q 320,720 320,728 L 320,768' ></path>
+<text x='387' y='715' transform='rotate(0 387,715)' title='Fk JSon
+override ref ap (  )' class='relName'></text>
+<!-- ============= Fk 'ap_JSon' ============= -->
+<path id='ap_JSon'  onmouseover="hghl(['ap_JSon','ezmcloud.device.ap'])" onmouseout="uhghl(['ap_JSon','ezmcloud.device.ap'])" transform='translate(8,0)' class='scene' d='M 208 800 L 160,800' >
+	<title>Fk JSon
+ap ref device (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot1)' marker-end='url(#arrow1)'    d='M 208 800 L 160,800' ></path>
+<text x='211' y='795' transform='rotate(0 211,795)' title='Fk JSon
+ap ref device (  )' class='relName'></text>
+<!-- ============= Fk 'radio_fixed_JSon' ============= -->
+<path id='radio_fixed_JSon'  onmouseover="hghl(['radio_fixed_JSon','ezmcloud.device.radio_fixed'])" onmouseout="uhghl(['radio_fixed_JSon','ezmcloud.device.radio_fixed'])" transform='translate(8,0)' class='scene' d='M 384 800 L 336,800' >
+	<title>Fk JSon
+radio_fixed ref ap (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot0p)' marker-end='url(#arrow01)'  class='dotted '  d='M 384 800 L 336,800' ></path>
+<text x='387' y='795' transform='rotate(0 387,795)' title='Fk JSon
+radio_fixed ref ap (  )' class='relName'></text>
+<!-- ============= Fk 'wlan_fixed_JSon' ============= -->
+<path id='wlan_fixed_JSon'  onmouseover="hghl(['wlan_fixed_JSon','ezmcloud.device.wlan_fixed'])" onmouseout="uhghl(['wlan_fixed_JSon','ezmcloud.device.wlan_fixed'])" transform='translate(8,0)' class='scene' d='M 560 800 L 512,800' >
+	<title>Fk JSon
+wlan_fixed ref radio_fixed (  )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot0p)' marker-end='url(#arrow01)'  class='dotted '  d='M 560 800 L 512,800' ></path>
+<text x='563' y='795' transform='rotate(0 563,795)' title='Fk JSon
+wlan_fixed ref radio_fixed (  )' class='relName'></text>
+<!-- ============= Table 'license' ============= -->
+<rect class='table' x='1440' y='1368' width='112' height='160' rx='8' ry='8' style='stroke:none'/>
+<path d='M 1440.00 1396.00 L 1440.00 1376.00 Q 1440.00 1368.00 1448.00 1368.00 L 1544.00 1368.00 Q 1552.00 1368.00 1552.00 1376.00 L 1552.00 1396.00 L1440.00 1396.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='1440' y='1368' width='112' height='160' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='1440.000000' y1='1396.000000' x2='1552.000000' y2='1396.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1456.000000' y1='1396.000000' x2='1456.000000' y2='1528.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1540.000000' y1='1396.000000' x2='1540.000000' y2='1528.000000' style='stroke:#626e5f'/>
+<a xlink:href='#license'><text x='1476' y='1388'>license</text><title>Sub-document license</title></a>
+  <use id='nn' x='1442' y='1405' xlink:href='#nn'/><a xlink:href='#license.name'><text id='license.name' x='1459' y='1415'>name</text><title>name
+* string</title></a>
+  <use id='nn' x='1442' y='1421' xlink:href='#nn'/><a xlink:href='#license.level'><text id='license.level' x='1459' y='1431'>level</text><title>level
+* double</title></a>
+  <use id='nn' x='1442' y='1437' xlink:href='#nn'/><a xlink:href='#license.period'><text id='license.period' x='1459' y='1447'>period</text><title>period
+* double</title></a>
+  <use id='nn' x='1442' y='1453' xlink:href='#nn'/><a xlink:href='#license.max_device'><text id='license.max_device' x='1459' y='1463'>max_device</text><title>max_device
+* double</title></a>
+  <use id='nn' x='1442' y='1469' xlink:href='#nn'/><a xlink:href='#license.period_type'><text id='license.period_type' x='1459' y='1479'>period_type</text><title>period_type
+* double</title></a>
+  <use id='nn' x='1442' y='1485' xlink:href='#nn'/><a xlink:href='#license.starting_time'><text id='license.starting_time' x='1459' y='1495'>starting_time</text><title>starting_time
+* string</title></a>
+  <use id='nn' x='1442' y='1501' xlink:href='#nn'/><a xlink:href='#license.expiration_time'><text id='license.expiration_time' x='1459' y='1511'>expiration_time</text><title>expiration_time
+* string</title></a>
+
+<!-- ============= Table 'orgs' ============= -->
+<rect class='table' x='944' y='328' width='80' height='112' rx='8' ry='8' style='stroke:none'/>
+<path d='M 944.00 356.00 L 944.00 336.00 Q 944.00 328.00 952.00 328.00 L 1016.00 328.00 Q 1024.00 328.00 1024.00 336.00 L 1024.00 356.00 L944.00 356.00 ' style='fill:url(#tbg_bfd4f5);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='944' y='328' width='80' height='112' rx='8' ry='8' style='fill:none;stroke:#5f656e'/>
+<line class='delim' x1='944.000000' y1='356.000000' x2='1024.000000' y2='356.000000' style='stroke:#5f656e'/>
+<line class='delim' x1='960.000000' y1='356.000000' x2='960.000000' y2='440.000000' style='stroke:#5f656e'/>
+<line class='delim' x1='1012.000000' y1='356.000000' x2='1012.000000' y2='440.000000' style='stroke:#5f656e'/>
+<a xlink:href='#orgs'><text x='970' y='348'>orgs</text><title>Sub-document orgs</title></a>
+  <a xlink:href='#orgs.org_id'><text id='orgs.org_id' x='963' y='375'>org_id</text><title>org_id
+string</title></a>
+  <a xlink:href='#orgs.role'><text id='orgs.role' x='963' y='391'>role</text><title>role
+string</title></a>
+  <a xlink:href='#orgs.name'><text id='orgs.name' x='963' y='407'>name</text><title>name
+string</title></a>
+  <a xlink:href='#orgs.photo'><text id='orgs.photo' x='963' y='423'>photo</text><title>photo
+string</title></a>
+
+<!-- ============= Table 'user' ============= -->
+<rect class='table' x='784' y='328' width='96' height='240' rx='8' ry='8' style='stroke:none'/>
+<path d='M 784.00 356.00 L 784.00 336.00 Q 784.00 328.00 792.00 328.00 L 872.00 328.00 Q 880.00 328.00 880.00 336.00 L 880.00 356.00 L784.00 356.00 ' style='fill:url(#tbg_bfd4f5);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='784' y='328' width='96' height='240' rx='8' ry='8' style='fill:none;stroke:#5f656e'/>
+<line class='delim' x1='784.000000' y1='356.000000' x2='880.000000' y2='356.000000' style='stroke:#5f656e'/>
+<line class='delim' x1='800.000000' y1='356.000000' x2='800.000000' y2='568.000000' style='stroke:#5f656e'/>
+<line class='delim' x1='868.000000' y1='356.000000' x2='868.000000' y2='568.000000' style='stroke:#5f656e'/>
+<a xlink:href='#user'><text x='818' y='348'>user</text><title>Collection ezmcloud.user</title></a>
+  <use id='nn' x='786' y='365' xlink:href='#nn'/><a xlink:href='#user._id'><use id='pk' x='786' y='364' xlink:href='#pk'/><title>Pk _id_ ( _id ) </title></a>
+<a xlink:href='#user._id'><text id='ezmcloud.user._id' x='803' y='375'>_id</text><title>_id
+* oid</title></a>
+  <use id='nn' x='786' y='381' xlink:href='#nn'/><a xlink:href='#user.email'><text id='ezmcloud.user.email' x='803' y='391'>email</text><title>email
+* string</title></a>
+  <use id='nn' x='786' y='397' xlink:href='#nn'/><a xlink:href='#user.account'><text id='ezmcloud.user.account' x='803' y='407' onmouseover="hghl(['account_JSon'])" onmouseout="uhghl(['account_JSon'])">account</text><title>account
+* map</title></a>
+  <a xlink:href='#user.password'><text id='ezmcloud.user.password' x='803' y='423'>password</text><title>password
+string</title></a>
+  <a xlink:href='#user.signup_by'><text id='ezmcloud.user.signup_by' x='803' y='439'>signup_by</text><title>signup_by
+string</title></a>
+  <a xlink:href='#user.profiles'><text id='ezmcloud.user.profiles' x='803' y='455' onmouseover="hghl(['profiles_JSon'])" onmouseout="uhghl(['profiles_JSon'])">profiles</text><title>profiles
+map</title></a>
+  <a xlink:href='#user.photo'><text id='ezmcloud.user.photo' x='803' y='471'>photo</text><title>photo
+string</title></a>
+  <a xlink:href='#user.login_at'><text id='ezmcloud.user.login_at' x='803' y='487'>login_at</text><title>login_at
+string</title></a>
+  <a xlink:href='#user.created_at'><text id='ezmcloud.user.created_at' x='803' y='503'>created_at</text><title>created_at
+string</title></a>
+  <a xlink:href='#user.updated_at'><text id='ezmcloud.user.updated_at' x='803' y='519'>updated_at</text><title>updated_at
+string</title></a>
+  <a xlink:href='#user.orgs'><text id='ezmcloud.user.orgs' x='803' y='535' onmouseover="hghl(['orgs_JSon'])" onmouseout="uhghl(['orgs_JSon'])">orgs</text><title>orgs
+list</title></a>
+  <a xlink:href='#user.networks'><text id='ezmcloud.user.networks' x='803' y='551' onmouseover="hghl(['networks_JSon'])" onmouseout="uhghl(['networks_JSon'])">networks</text><title>networks
+list</title></a>
+
+<!-- ============= Table 'networks' ============= -->
+<rect class='table' x='944' y='472' width='96' height='80' rx='8' ry='8' style='stroke:none'/>
+<path d='M 944.00 500.00 L 944.00 480.00 Q 944.00 472.00 952.00 472.00 L 1032.00 472.00 Q 1040.00 472.00 1040.00 480.00 L 1040.00 500.00 L944.00 500.00 ' style='fill:url(#tbg_bfd4f5);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='944' y='472' width='96' height='80' rx='8' ry='8' style='fill:none;stroke:#5f656e'/>
+<line class='delim' x1='944.000000' y1='500.000000' x2='1040.000000' y2='500.000000' style='stroke:#5f656e'/>
+<line class='delim' x1='960.000000' y1='500.000000' x2='960.000000' y2='552.000000' style='stroke:#5f656e'/>
+<line class='delim' x1='1028.000000' y1='500.000000' x2='1028.000000' y2='552.000000' style='stroke:#5f656e'/>
+<a xlink:href='#networks'><text x='967' y='492'>networks</text><title>Sub-document networks</title></a>
+  <a xlink:href='#networks.network_id'><text id='networks.network_id' x='963' y='519'>network_id</text><title>network_id
+string</title></a>
+  <a xlink:href='#networks.role'><text id='networks.role' x='963' y='535'>role</text><title>role
+string</title></a>
+
+<!-- ============= Table 'account' ============= -->
+<rect class='table' x='944' y='200' width='80' height='96' rx='8' ry='8' style='stroke:none'/>
+<path d='M 944.00 228.00 L 944.00 208.00 Q 944.00 200.00 952.00 200.00 L 1016.00 200.00 Q 1024.00 200.00 1024.00 208.00 L 1024.00 228.00 L944.00 228.00 ' style='fill:url(#tbg_bfd4f5);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='944' y='200' width='80' height='96' rx='8' ry='8' style='fill:none;stroke:#5f656e'/>
+<line class='delim' x1='944.000000' y1='228.000000' x2='1024.000000' y2='228.000000' style='stroke:#5f656e'/>
+<line class='delim' x1='960.000000' y1='228.000000' x2='960.000000' y2='296.000000' style='stroke:#5f656e'/>
+<line class='delim' x1='1012.000000' y1='228.000000' x2='1012.000000' y2='296.000000' style='stroke:#5f656e'/>
+<a xlink:href='#account'><text x='962' y='220'>account</text><title>Sub-document account</title></a>
+  <use id='nn' x='946' y='237' xlink:href='#nn'/><a xlink:href='#account.name'><text id='account.name' x='963' y='247'>name</text><title>name
+* map</title></a>
+  <a xlink:href='#account.mobile'><text id='account.mobile' x='963' y='263'>mobile</text><title>mobile
+string</title></a>
+  <a xlink:href='#account.company'><text id='account.company' x='963' y='279'>company</text><title>company
+string</title></a>
+
+<!-- ============= Table 'name' ============= -->
+<rect class='table' x='1088' y='200' width='80' height='96' rx='8' ry='8' style='stroke:none'/>
+<path d='M 1088.00 228.00 L 1088.00 208.00 Q 1088.00 200.00 1096.00 200.00 L 1160.00 200.00 Q 1168.00 200.00 1168.00 208.00 L 1168.00 228.00 L1088.00 228.00 ' style='fill:url(#tbg_bfd4f5);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='1088' y='200' width='80' height='96' rx='8' ry='8' style='fill:none;stroke:#5f656e'/>
+<line class='delim' x1='1088.000000' y1='228.000000' x2='1168.000000' y2='228.000000' style='stroke:#5f656e'/>
+<line class='delim' x1='1104.000000' y1='228.000000' x2='1104.000000' y2='296.000000' style='stroke:#5f656e'/>
+<line class='delim' x1='1156.000000' y1='228.000000' x2='1156.000000' y2='296.000000' style='stroke:#5f656e'/>
+<a xlink:href='#name'><text x='1111' y='220'>name</text><title>Sub-document name</title></a>
+  <use id='nn' x='1090' y='237' xlink:href='#nn'/><a xlink:href='#name.first'><text id='name.first' x='1107' y='247'>first</text><title>first
+* string</title></a>
+  <use id='nn' x='1090' y='253' xlink:href='#nn'/><a xlink:href='#name.last'><text id='name.last' x='1107' y='263'>last</text><title>last
+* string</title></a>
+  <use id='nn' x='1090' y='269' xlink:href='#nn'/><a xlink:href='#name.nickname'><text id='name.nickname' x='1107' y='279'>nickname</text><title>nickname
+* string</title></a>
+
+<!-- ============= Table 'profiles' ============= -->
+<rect class='table' x='944' y='104' width='80' height='64' rx='8' ry='8' style='stroke:none'/>
+<path d='M 944.00 132.00 L 944.00 112.00 Q 944.00 104.00 952.00 104.00 L 1016.00 104.00 Q 1024.00 104.00 1024.00 112.00 L 1024.00 132.00 L944.00 132.00 ' style='fill:url(#tbg_bfd4f5);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='944' y='104' width='80' height='64' rx='8' ry='8' style='fill:none;stroke:#5f656e'/>
+<line class='delim' x1='944.000000' y1='132.000000' x2='1024.000000' y2='132.000000' style='stroke:#5f656e'/>
+<line class='delim' x1='960.000000' y1='132.000000' x2='960.000000' y2='168.000000' style='stroke:#5f656e'/>
+<line class='delim' x1='1012.000000' y1='132.000000' x2='1012.000000' y2='168.000000' style='stroke:#5f656e'/>
+<a xlink:href='#profiles'><text x='962' y='124'>profiles</text><title>Sub-document profiles</title></a>
+  <a xlink:href='#profiles.google'><text id='profiles.google' x='963' y='151'>google</text><title>google
+map</title></a>
+
+<!-- ============= Table 'google' ============= -->
+<rect class='table' x='1088' y='72' width='96' height='96' rx='8' ry='8' style='stroke:none'/>
+<path d='M 1088.00 100.00 L 1088.00 80.00 Q 1088.00 72.00 1096.00 72.00 L 1176.00 72.00 Q 1184.00 72.00 1184.00 80.00 L 1184.00 100.00 L1088.00 100.00 ' style='fill:url(#tbg_bfd4f5);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='1088' y='72' width='96' height='96' rx='8' ry='8' style='fill:none;stroke:#5f656e'/>
+<line class='delim' x1='1088.000000' y1='100.000000' x2='1184.000000' y2='100.000000' style='stroke:#5f656e'/>
+<line class='delim' x1='1104.000000' y1='100.000000' x2='1104.000000' y2='168.000000' style='stroke:#5f656e'/>
+<line class='delim' x1='1172.000000' y1='100.000000' x2='1172.000000' y2='168.000000' style='stroke:#5f656e'/>
+<a xlink:href='#google'><text x='1116' y='92'>google</text><title>Sub-document google</title></a>
+  <a xlink:href='#google.id'><text id='google.id' x='1107' y='119'>id</text><title>id
+string</title></a>
+  <a xlink:href='#google.token'><text id='google.token' x='1107' y='135'>token</text><title>token
+string</title></a>
+  <a xlink:href='#google.refreshToken'><text id='google.refreshToken' x='1107' y='151'>refreshToken</text><title>refreshToken
+string</title></a>
+
+<!-- ============= Table 'networks' ============= -->
+<rect class='table' x='1440' y='1560' width='112' height='176' rx='8' ry='8' style='stroke:none'/>
+<path d='M 1440.00 1588.00 L 1440.00 1568.00 Q 1440.00 1560.00 1448.00 1560.00 L 1544.00 1560.00 Q 1552.00 1560.00 1552.00 1568.00 L 1552.00 1588.00 L1440.00 1588.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='1440' y='1560' width='112' height='176' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='1440.000000' y1='1588.000000' x2='1552.000000' y2='1588.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1456.000000' y1='1588.000000' x2='1456.000000' y2='1736.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1540.000000' y1='1588.000000' x2='1540.000000' y2='1736.000000' style='stroke:#626e5f'/>
+<a xlink:href='#networks'><text x='1471' y='1580'>networks</text><title>Sub-document networks</title></a>
+  <a xlink:href='#networks._id'><text id='networks._id' x='1459' y='1607'>_id</text><title>_id
+string</title></a>
+  <a xlink:href='#networks.name'><text id='networks.name' x='1459' y='1623'>name</text><title>name
+string</title></a>
+  <a xlink:href='#networks.description'><text id='networks.description' x='1459' y='1639'>description</text><title>description
+string</title></a>
+  <a xlink:href='#networks.device_id_list'><text id='networks.device_id_list' x='1459' y='1655'>device_id_list</text><title>device_id_list
+array</title></a>
+  <a xlink:href='#networks.map'><text id='networks.map' x='1459' y='1671'>map</text><title>map
+map</title></a>
+  <a xlink:href='#networks.ap_cfg'><text id='networks.ap_cfg' x='1459' y='1687'>ap_cfg</text><title>ap_cfg
+map</title></a>
+  <a xlink:href='#networks.switch_cfg'><text id='networks.switch_cfg' x='1459' y='1703'>switch_cfg</text><title>switch_cfg
+map</title></a>
+  <a xlink:href='#networks.timezone'><text id='networks.timezone' x='1459' y='1719'>timezone</text><title>timezone
+map</title></a>
+
+<!-- ============= Table 'lan_port' ============= -->
+<rect class='table' x='1792' y='1816' width='96' height='112' rx='8' ry='8' style='stroke:none'/>
+<path d='M 1792.00 1844.00 L 1792.00 1824.00 Q 1792.00 1816.00 1800.00 1816.00 L 1880.00 1816.00 Q 1888.00 1816.00 1888.00 1824.00 L 1888.00 1844.00 L1792.00 1844.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='1792' y='1816' width='96' height='112' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='1792.000000' y1='1844.000000' x2='1888.000000' y2='1844.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1808.000000' y1='1844.000000' x2='1808.000000' y2='1928.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1876.000000' y1='1844.000000' x2='1876.000000' y2='1928.000000' style='stroke:#626e5f'/>
+<a xlink:href='#lan_port'><text x='1816' y='1836'>lan_port</text><title>Sub-document lan_port</title></a>
+  <a xlink:href='#lan_port.port'><text id='lan_port.port' x='1811' y='1863'>port</text><title>port
+double</title></a>
+  <a xlink:href='#lan_port.enable'><text id='lan_port.enable' x='1811' y='1879'>enable</text><title>enable
+double</title></a>
+  <a xlink:href='#lan_port.vlan_mode'><text id='lan_port.vlan_mode' x='1811' y='1895'>vlan_mode</text><title>vlan_mode
+double</title></a>
+  <a xlink:href='#lan_port.vid'><text id='lan_port.vid' x='1811' y='1911'>vid</text><title>vid
+double</title></a>
+
+<!-- ============= Table 'ap_cfg' ============= -->
+<rect class='table' x='1616' y='1560' width='112' height='240' rx='8' ry='8' style='stroke:none'/>
+<path d='M 1616.00 1588.00 L 1616.00 1568.00 Q 1616.00 1560.00 1624.00 1560.00 L 1720.00 1560.00 Q 1728.00 1560.00 1728.00 1568.00 L 1728.00 1588.00 L1616.00 1588.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='1616' y='1560' width='112' height='240' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='1616.000000' y1='1588.000000' x2='1728.000000' y2='1588.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1632.000000' y1='1588.000000' x2='1632.000000' y2='1800.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1716.000000' y1='1588.000000' x2='1716.000000' y2='1800.000000' style='stroke:#626e5f'/>
+<a xlink:href='#ap_cfg'><text x='1652' y='1580'>ap_cfg</text><title>Sub-document ap_cfg</title></a>
+  <a xlink:href='#ap_cfg.lan_port'><text id='ap_cfg.lan_port' x='1635' y='1607'>lan_port</text><title>lan_port
+list</title></a>
+  <a xlink:href='#ap_cfg.radio'><text id='ap_cfg.radio' x='1635' y='1623'>radio</text><title>radio
+list</title></a>
+  <a xlink:href='#ap_cfg.version'><text id='ap_cfg.version' x='1635' y='1639'>version</text><title>version
+double</title></a>
+  <a xlink:href='#ap_cfg.fasthandover'><text id='ap_cfg.fasthandover' x='1635' y='1655'>fasthandover</text><title>fasthandover
+map</title></a>
+  <a xlink:href='#ap_cfg.manage_vlan_id'><text id='ap_cfg.manage_vlan_id' x='1635' y='1671'>manage_vlan_id</text><title>manage_vlan_id
+double</title></a>
+  <a xlink:href='#ap_cfg.lan_port_count'><text id='ap_cfg.lan_port_count' x='1635' y='1687'>lan_port_count</text><title>lan_port_count
+double</title></a>
+  <a xlink:href='#ap_cfg.bandsteering'><text id='ap_cfg.bandsteering' x='1635' y='1703'>bandsteering</text><title>bandsteering
+map</title></a>
+  <a xlink:href='#ap_cfg.admin'><text id='ap_cfg.admin' x='1635' y='1719'>admin</text><title>admin
+string</title></a>
+  <a xlink:href='#ap_cfg.bandsteer'><text id='ap_cfg.bandsteer' x='1635' y='1735'>bandsteer</text><title>bandsteer
+double</title></a>
+  <a xlink:href='#ap_cfg.led'><text id='ap_cfg.led' x='1635' y='1751'>led</text><title>led
+map</title></a>
+  <a xlink:href='#ap_cfg.mesh'><text id='ap_cfg.mesh' x='1635' y='1767'>mesh</text><title>mesh
+map</title></a>
+  <a xlink:href='#ap_cfg.guest_network'><text id='ap_cfg.guest_network' x='1635' y='1783'>guest_network</text><title>guest_network
+map</title></a>
+
+<!-- ============= Table 'radio' ============= -->
+<rect class='table' x='1792' y='1560' width='112' height='224' rx='8' ry='8' style='stroke:none'/>
+<path d='M 1792.00 1588.00 L 1792.00 1568.00 Q 1792.00 1560.00 1800.00 1560.00 L 1896.00 1560.00 Q 1904.00 1560.00 1904.00 1568.00 L 1904.00 1588.00 L1792.00 1588.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='1792' y='1560' width='112' height='224' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='1792.000000' y1='1588.000000' x2='1904.000000' y2='1588.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1808.000000' y1='1588.000000' x2='1808.000000' y2='1784.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1892.000000' y1='1588.000000' x2='1892.000000' y2='1784.000000' style='stroke:#626e5f'/>
+<a xlink:href='#radio'><text x='1832' y='1580'>radio</text><title>Sub-document radio</title></a>
+  <a xlink:href='#radio.channel'><text id='radio.channel' x='1811' y='1607'>channel</text><title>channel
+map</title></a>
+  <a xlink:href='#radio.tx_power'><text id='radio.tx_power' x='1811' y='1623'>tx_power</text><title>tx_power
+double</title></a>
+  <a xlink:href='#radio.data_rate'><text id='radio.data_rate' x='1811' y='1639'>data_rate</text><title>data_rate
+string</title></a>
+  <a xlink:href='#radio.rts_cts_threshold'><text id='radio.rts_cts_threshold' x='1811' y='1655'>rts_cts_threshold</text><title>rts_cts_threshold
+double</title></a>
+  <a xlink:href='#radio.wlan'><text id='radio.wlan' x='1811' y='1671'>wlan</text><title>wlan
+list</title></a>
+  <a xlink:href='#radio.type'><text id='radio.type' x='1811' y='1687'>type</text><title>type
+string</title></a>
+  <a xlink:href='#radio.wl_mode'><text id='radio.wl_mode' x='1811' y='1703'>wl_mode</text><title>wl_mode
+double</title></a>
+  <a xlink:href='#radio.mesh'><text id='radio.mesh' x='1811' y='1719'>mesh</text><title>mesh
+map</title></a>
+  <a xlink:href='#radio.country'><text id='radio.country' x='1811' y='1735'>country</text><title>country
+double</title></a>
+  <a xlink:href='#radio.limited_clients'><text id='radio.limited_clients' x='1811' y='1751'>limited_clients</text><title>limited_clients
+map</title></a>
+  <a xlink:href='#radio.aggregation'><text id='radio.aggregation' x='1811' y='1767'>aggregation</text><title>aggregation
+map</title></a>
+
+<!-- ============= Table 'wep' ============= -->
+<rect class='table' x='2144' y='1192' width='80' height='128' rx='8' ry='8' style='stroke:none'/>
+<path d='M 2144.00 1220.00 L 2144.00 1200.00 Q 2144.00 1192.00 2152.00 1192.00 L 2216.00 1192.00 Q 2224.00 1192.00 2224.00 1200.00 L 2224.00 1220.00 L2144.00 1220.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='2144' y='1192' width='80' height='128' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='2144.000000' y1='1220.000000' x2='2224.000000' y2='1220.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='2160.000000' y1='1220.000000' x2='2160.000000' y2='1320.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='2212.000000' y1='1220.000000' x2='2212.000000' y2='1320.000000' style='stroke:#626e5f'/>
+<a xlink:href='#wep'><text x='2170' y='1212'>wep</text><title>Sub-document wep</title></a>
+  <a xlink:href='#wep.auth_type'><text id='wep.auth_type' x='2163' y='1239'>auth_type</text><title>auth_type
+double</title></a>
+  <a xlink:href='#wep.key'><text id='wep.key' x='2163' y='1255'>key</text><title>key
+array</title></a>
+  <a xlink:href='#wep.key_len'><text id='wep.key_len' x='2163' y='1271'>key_len</text><title>key_len
+double</title></a>
+  <a xlink:href='#wep.in_type'><text id='wep.in_type' x='2163' y='1287'>in_type</text><title>in_type
+double</title></a>
+  <a xlink:href='#wep.def_key'><text id='wep.def_key' x='2163' y='1303'>def_key</text><title>def_key
+double</title></a>
+
+<!-- ============= Table 'floor' ============= -->
+<rect class='table' x='1760' y='1960' width='128' height='320' rx='8' ry='8' style='stroke:none'/>
+<path d='M 1760.00 1988.00 L 1760.00 1968.00 Q 1760.00 1960.00 1768.00 1960.00 L 1880.00 1960.00 Q 1888.00 1960.00 1888.00 1968.00 L 1888.00 1988.00 L1760.00 1988.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='1760' y='1960' width='128' height='320' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='1760.000000' y1='1988.000000' x2='1888.000000' y2='1988.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1776.000000' y1='1988.000000' x2='1776.000000' y2='2280.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1876.000000' y1='1988.000000' x2='1876.000000' y2='2280.000000' style='stroke:#626e5f'/>
+<a xlink:href='#floor'><text x='1808' y='1980'>floor</text><title>Sub-document floor</title></a>
+  <a xlink:href='#floor.filename'><text id='floor.filename' x='1779' y='2007'>filename</text><title>filename
+string</title></a>
+  <a xlink:href='#floor.description'><text id='floor.description' x='1779' y='2023'>description</text><title>description
+string</title></a>
+  <a xlink:href='#floor.image_scale'><text id='floor.image_scale' x='1779' y='2039'>image_scale</text><title>image_scale
+string</title></a>
+  <a xlink:href='#floor.x'><text id='floor.x' x='1779' y='2055'>x</text><title>x
+string</title></a>
+  <a xlink:href='#floor.y'><text id='floor.y' x='1779' y='2071'>y</text><title>y
+string</title></a>
+  <a xlink:href='#floor.scale_unit'><text id='floor.scale_unit' x='1779' y='2087'>scale_unit</text><title>scale_unit
+double</title></a>
+  <a xlink:href='#floor.scale_val'><text id='floor.scale_val' x='1779' y='2103'>scale_val</text><title>scale_val
+string</title></a>
+  <a xlink:href='#floor.show_info'><text id='floor.show_info' x='1779' y='2119'>show_info</text><title>show_info
+double</title></a>
+  <a xlink:href='#floor.rssi_val'><text id='floor.rssi_val' x='1779' y='2135'>rssi_val</text><title>rssi_val
+double</title></a>
+  <a xlink:href='#floor.rssi_range'><text id='floor.rssi_range' x='1779' y='2151'>rssi_range</text><title>rssi_range
+double</title></a>
+  <a xlink:href='#floor.rssi_range_enable'><text id='floor.rssi_range_enable' x='1779' y='2167'>rssi_range_enable</text><title>rssi_range_enable
+boolean</title></a>
+  <a xlink:href='#floor.ap_info_enable'><text id='floor.ap_info_enable' x='1779' y='2183'>ap_info_enable</text><title>ap_info_enable
+boolean</title></a>
+  <a xlink:href='#floor.coverage_enable'><text id='floor.coverage_enable' x='1779' y='2199'>coverage_enable</text><title>coverage_enable
+boolean</title></a>
+  <a xlink:href='#floor.radio_select'><text id='floor.radio_select' x='1779' y='2215'>radio_select</text><title>radio_select
+double</title></a>
+  <a xlink:href='#floor.calibration_offset'><text id='floor.calibration_offset' x='1779' y='2231'>calibration_offset</text><title>calibration_offset
+double</title></a>
+  <a xlink:href='#floor.size'><text id='floor.size' x='1779' y='2247'>size</text><title>size
+double</title></a>
+  <a xlink:href='#floor._id'><text id='floor._id' x='1779' y='2263'>_id</text><title>_id
+string</title></a>
+
+<!-- ============= Table 'building' ============= -->
+<rect class='table' x='1760' y='2312' width='96' height='112' rx='8' ry='8' style='stroke:none'/>
+<path d='M 1760.00 2340.00 L 1760.00 2320.00 Q 1760.00 2312.00 1768.00 2312.00 L 1848.00 2312.00 Q 1856.00 2312.00 1856.00 2320.00 L 1856.00 2340.00 L1760.00 2340.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='1760' y='2312' width='96' height='112' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='1760.000000' y1='2340.000000' x2='1856.000000' y2='2340.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1776.000000' y1='2340.000000' x2='1776.000000' y2='2424.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1844.000000' y1='2340.000000' x2='1844.000000' y2='2424.000000' style='stroke:#626e5f'/>
+<a xlink:href='#building'><text x='1784' y='2332'>building</text><title>Sub-document building</title></a>
+  <a xlink:href='#building.name'><text id='building.name' x='1779' y='2359'>name</text><title>name
+string</title></a>
+  <a xlink:href='#building.description'><text id='building.description' x='1779' y='2375'>description</text><title>description
+string</title></a>
+  <a xlink:href='#building.floor'><text id='building.floor' x='1779' y='2391'>floor</text><title>floor
+list</title></a>
+  <a xlink:href='#building._id'><text id='building._id' x='1779' y='2407'>_id</text><title>_id
+string</title></a>
+
+<!-- ============= Table 'floor' ============= -->
+<rect class='table' x='1920' y='2312' width='128' height='320' rx='8' ry='8' style='stroke:none'/>
+<path d='M 1920.00 2340.00 L 1920.00 2320.00 Q 1920.00 2312.00 1928.00 2312.00 L 2040.00 2312.00 Q 2048.00 2312.00 2048.00 2320.00 L 2048.00 2340.00 L1920.00 2340.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='1920' y='2312' width='128' height='320' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='1920.000000' y1='2340.000000' x2='2048.000000' y2='2340.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1936.000000' y1='2340.000000' x2='1936.000000' y2='2632.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='2036.000000' y1='2340.000000' x2='2036.000000' y2='2632.000000' style='stroke:#626e5f'/>
+<a xlink:href='#floor'><text x='1968' y='2332'>floor</text><title>Sub-document floor</title></a>
+  <a xlink:href='#floor._id'><text id='floor._id' x='1939' y='2359'>_id</text><title>_id
+string</title></a>
+  <a xlink:href='#floor.filename'><text id='floor.filename' x='1939' y='2375'>filename</text><title>filename
+string</title></a>
+  <a xlink:href='#floor.description'><text id='floor.description' x='1939' y='2391'>description</text><title>description
+string</title></a>
+  <a xlink:href='#floor.image_scale'><text id='floor.image_scale' x='1939' y='2407'>image_scale</text><title>image_scale
+string</title></a>
+  <a xlink:href='#floor.x'><text id='floor.x' x='1939' y='2423'>x</text><title>x
+string</title></a>
+  <a xlink:href='#floor.y'><text id='floor.y' x='1939' y='2439'>y</text><title>y
+string</title></a>
+  <a xlink:href='#floor.scale_unit'><text id='floor.scale_unit' x='1939' y='2455'>scale_unit</text><title>scale_unit
+double</title></a>
+  <a xlink:href='#floor.scale_val'><text id='floor.scale_val' x='1939' y='2471'>scale_val</text><title>scale_val
+string</title></a>
+  <a xlink:href='#floor.show_info'><text id='floor.show_info' x='1939' y='2487'>show_info</text><title>show_info
+double</title></a>
+  <a xlink:href='#floor.rssi_val'><text id='floor.rssi_val' x='1939' y='2503'>rssi_val</text><title>rssi_val
+double</title></a>
+  <a xlink:href='#floor.rssi_range'><text id='floor.rssi_range' x='1939' y='2519'>rssi_range</text><title>rssi_range
+double</title></a>
+  <a xlink:href='#floor.rssi_range_enable'><text id='floor.rssi_range_enable' x='1939' y='2535'>rssi_range_enable</text><title>rssi_range_enable
+boolean</title></a>
+  <a xlink:href='#floor.ap_info_enable'><text id='floor.ap_info_enable' x='1939' y='2551'>ap_info_enable</text><title>ap_info_enable
+boolean</title></a>
+  <a xlink:href='#floor.coverage_enable'><text id='floor.coverage_enable' x='1939' y='2567'>coverage_enable</text><title>coverage_enable
+boolean</title></a>
+  <a xlink:href='#floor.radio_select'><text id='floor.radio_select' x='1939' y='2583'>radio_select</text><title>radio_select
+double</title></a>
+  <a xlink:href='#floor.calibration_offset'><text id='floor.calibration_offset' x='1939' y='2599'>calibration_offset</text><title>calibration_offset
+double</title></a>
+  <a xlink:href='#floor.size'><text id='floor.size' x='1939' y='2615'>size</text><title>size
+double</title></a>
+
+<!-- ============= Table 'map' ============= -->
+<rect class='table' x='1616' y='1832' width='80' height='96' rx='8' ry='8' style='stroke:none'/>
+<path d='M 1616.00 1860.00 L 1616.00 1840.00 Q 1616.00 1832.00 1624.00 1832.00 L 1688.00 1832.00 Q 1696.00 1832.00 1696.00 1840.00 L 1696.00 1860.00 L1616.00 1860.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='1616' y='1832' width='80' height='96' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='1616.000000' y1='1860.000000' x2='1696.000000' y2='1860.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1632.000000' y1='1860.000000' x2='1632.000000' y2='1928.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1684.000000' y1='1860.000000' x2='1684.000000' y2='1928.000000' style='stroke:#626e5f'/>
+<a xlink:href='#map'><text x='1642' y='1852'>map</text><title>Sub-document map</title></a>
+  <a xlink:href='#map.building'><text id='map.building' x='1635' y='1879'>building</text><title>building
+list</title></a>
+  <a xlink:href='#map.floor'><text id='map.floor' x='1635' y='1895'>floor</text><title>floor
+list</title></a>
+  <a xlink:href='#map.gps_info'><text id='map.gps_info' x='1635' y='1911'>gps_info</text><title>gps_info
+list</title></a>
+
+<!-- ============= Table 'system' ============= -->
+<rect class='table' x='1760' y='1304' width='128' height='224' rx='8' ry='8' style='stroke:none'/>
+<path d='M 1760.00 1332.00 L 1760.00 1312.00 Q 1760.00 1304.00 1768.00 1304.00 L 1880.00 1304.00 Q 1888.00 1304.00 1888.00 1312.00 L 1888.00 1332.00 L1760.00 1332.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='1760' y='1304' width='128' height='224' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='1760.000000' y1='1332.000000' x2='1888.000000' y2='1332.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1776.000000' y1='1332.000000' x2='1776.000000' y2='1528.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1876.000000' y1='1332.000000' x2='1876.000000' y2='1528.000000' style='stroke:#626e5f'/>
+<a xlink:href='#system'><text x='1804' y='1324'>system</text><title>Sub-document system</title></a>
+  <a xlink:href='#system.cloud'><text id='system.cloud' x='1779' y='1351'>cloud</text><title>cloud
+map</title></a>
+  <a xlink:href='#system.firmware'><text id='system.firmware' x='1779' y='1367'>firmware</text><title>firmware
+map</title></a>
+  <a xlink:href='#system.summary_info'><text id='system.summary_info' x='1779' y='1383'>summary_info</text><title>summary_info
+map</title></a>
+  <a xlink:href='#system.reboot'><text id='system.reboot' x='1779' y='1399'>reboot</text><title>reboot
+boolean</title></a>
+  <a xlink:href='#system.ports'><text id='system.ports' x='1779' y='1415'>ports</text><title>ports
+list</title></a>
+  <a xlink:href='#system.snmp'><text id='system.snmp' x='1779' y='1431'>snmp</text><title>snmp
+map</title></a>
+  <a xlink:href='#system.stp'><text id='system.stp' x='1779' y='1447'>stp</text><title>stp
+map</title></a>
+  <a xlink:href='#system.device_access'><text id='system.device_access' x='1779' y='1463'>device_access</text><title>device_access
+map</title></a>
+  <a xlink:href='#system.igmp'><text id='system.igmp' x='1779' y='1479'>igmp</text><title>igmp
+map</title></a>
+  <a xlink:href='#system.link_aggregation'><text id='system.link_aggregation' x='1779' y='1495'>link_aggregation</text><title>link_aggregation
+list</title></a>
+  <a xlink:href='#system.port_mirror'><text id='system.port_mirror' x='1779' y='1511'>port_mirror</text><title>port_mirror
+list</title></a>
+
+<!-- ============= Table 'cos' ============= -->
+<rect class='table' x='1952' y='408' width='64' height='80' rx='8' ry='8' style='stroke:none'/>
+<path d='M 1952.00 436.00 L 1952.00 416.00 Q 1952.00 408.00 1960.00 408.00 L 2008.00 408.00 Q 2016.00 408.00 2016.00 416.00 L 2016.00 436.00 L1952.00 436.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='1952' y='408' width='64' height='80' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='1952.000000' y1='436.000000' x2='2016.000000' y2='436.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1968.000000' y1='436.000000' x2='1968.000000' y2='488.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='2004.000000' y1='436.000000' x2='2004.000000' y2='488.000000' style='stroke:#626e5f'/>
+<a xlink:href='#cos'><text x='1972' y='428'>cos</text><title>Sub-document cos</title></a>
+  <a xlink:href='#cos.id'><text id='cos.id' x='1971' y='455'>id</text><title>id
+double</title></a>
+  <a xlink:href='#cos.queue'><text id='cos.queue' x='1971' y='471'>queue</text><title>queue
+double</title></a>
+
+<!-- ============= Table 'dscp' ============= -->
+<rect class='table' x='1952' y='520' width='64' height='80' rx='8' ry='8' style='stroke:none'/>
+<path d='M 1952.00 548.00 L 1952.00 528.00 Q 1952.00 520.00 1960.00 520.00 L 2008.00 520.00 Q 2016.00 520.00 2016.00 528.00 L 2016.00 548.00 L1952.00 548.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='1952' y='520' width='64' height='80' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='1952.000000' y1='548.000000' x2='2016.000000' y2='548.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1968.000000' y1='548.000000' x2='1968.000000' y2='600.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='2004.000000' y1='548.000000' x2='2004.000000' y2='600.000000' style='stroke:#626e5f'/>
+<a xlink:href='#dscp'><text x='1969' y='540'>dscp</text><title>Sub-document dscp</title></a>
+  <a xlink:href='#dscp.id'><text id='dscp.id' x='1971' y='567'>id</text><title>id
+double</title></a>
+  <a xlink:href='#dscp.queue'><text id='dscp.queue' x='1971' y='583'>queue</text><title>queue
+double</title></a>
+
+<!-- ============= Table 'mac_acl' ============= -->
+<rect class='table' x='1904' y='1432' width='80' height='80' rx='8' ry='8' style='stroke:none'/>
+<path d='M 1904.00 1460.00 L 1904.00 1440.00 Q 1904.00 1432.00 1912.00 1432.00 L 1976.00 1432.00 Q 1984.00 1432.00 1984.00 1440.00 L 1984.00 1460.00 L1904.00 1460.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='1904' y='1432' width='80' height='80' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='1904.000000' y1='1460.000000' x2='1984.000000' y2='1460.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1920.000000' y1='1460.000000' x2='1920.000000' y2='1512.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1972.000000' y1='1460.000000' x2='1972.000000' y2='1512.000000' style='stroke:#626e5f'/>
+<a xlink:href='#mac_acl'><text x='1921' y='1452'>mac_acl</text><title>Sub-document mac_acl</title></a>
+  <a xlink:href='#mac_acl.method'><text id='mac_acl.method' x='1923' y='1479'>method</text><title>method
+double</title></a>
+  <a xlink:href='#mac_acl.name'><text id='mac_acl.name' x='1923' y='1495'>name</text><title>name
+string</title></a>
+
+<!-- ============= Table 'mac_ace' ============= -->
+<rect class='table' x='1904' y='744' width='128' height='224' rx='8' ry='8' style='stroke:none'/>
+<path d='M 1904.00 772.00 L 1904.00 752.00 Q 1904.00 744.00 1912.00 744.00 L 2024.00 744.00 Q 2032.00 744.00 2032.00 752.00 L 2032.00 772.00 L1904.00 772.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='1904' y='744' width='128' height='224' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='1904.000000' y1='772.000000' x2='2032.000000' y2='772.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1920.000000' y1='772.000000' x2='1920.000000' y2='968.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='2020.000000' y1='772.000000' x2='2020.000000' y2='968.000000' style='stroke:#626e5f'/>
+<a xlink:href='#mac_ace'><text x='1944' y='764'>mac_ace</text><title>Sub-document mac_ace</title></a>
+  <a xlink:href='#mac_ace.acl_name'><text id='mac_ace.acl_name' x='1923' y='791'>acl_name</text><title>acl_name
+string</title></a>
+  <a xlink:href='#mac_ace.sequence'><text id='mac_ace.sequence' x='1923' y='807'>sequence</text><title>sequence
+double</title></a>
+  <a xlink:href='#mac_ace.method'><text id='mac_ace.method' x='1923' y='823'>method</text><title>method
+double</title></a>
+  <a xlink:href='#mac_ace.action'><text id='mac_ace.action' x='1923' y='839'>action</text><title>action
+double</title></a>
+  <a xlink:href='#mac_ace.destination_mac'><text id='mac_ace.destination_mac' x='1923' y='855'>destination_mac</text><title>destination_mac
+string</title></a>
+  <a xlink:href='#mac_ace.destination_mask'><text id='mac_ace.destination_mask' x='1923' y='871'>destination_mask</text><title>destination_mask
+string</title></a>
+  <a xlink:href='#mac_ace.source_mac'><text id='mac_ace.source_mac' x='1923' y='887'>source_mac</text><title>source_mac
+string</title></a>
+  <a xlink:href='#mac_ace.source_mask'><text id='mac_ace.source_mask' x='1923' y='903'>source_mask</text><title>source_mask
+string</title></a>
+  <a xlink:href='#mac_ace.vlan_id'><text id='mac_ace.vlan_id' x='1923' y='919'>vlan_id</text><title>vlan_id
+double</title></a>
+  <a xlink:href='#mac_ace.priority'><text id='mac_ace.priority' x='1923' y='935'>priority</text><title>priority
+double</title></a>
+  <a xlink:href='#mac_ace.ethertype'><text id='mac_ace.ethertype' x='1923' y='951'>ethertype</text><title>ethertype
+string</title></a>
+
+<!-- ============= Table 'ipv4_acl' ============= -->
+<rect class='table' x='1904' y='632' width='80' height='80' rx='8' ry='8' style='stroke:none'/>
+<path d='M 1904.00 660.00 L 1904.00 640.00 Q 1904.00 632.00 1912.00 632.00 L 1976.00 632.00 Q 1984.00 632.00 1984.00 640.00 L 1984.00 660.00 L1904.00 660.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='1904' y='632' width='80' height='80' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='1904.000000' y1='660.000000' x2='1984.000000' y2='660.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1920.000000' y1='660.000000' x2='1920.000000' y2='712.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1972.000000' y1='660.000000' x2='1972.000000' y2='712.000000' style='stroke:#626e5f'/>
+<a xlink:href='#ipv4_acl'><text x='1920' y='652'>ipv4_acl</text><title>Sub-document ipv4_acl</title></a>
+  <a xlink:href='#ipv4_acl.method'><text id='ipv4_acl.method' x='1923' y='679'>method</text><title>method
+double</title></a>
+  <a xlink:href='#ipv4_acl.name'><text id='ipv4_acl.name' x='1923' y='695'>name</text><title>name
+string</title></a>
+
+<!-- ============= Table 'acl' ============= -->
+<rect class='table' x='1760' y='1000' width='80' height='112' rx='8' ry='8' style='stroke:none'/>
+<path d='M 1760.00 1028.00 L 1760.00 1008.00 Q 1760.00 1000.00 1768.00 1000.00 L 1832.00 1000.00 Q 1840.00 1000.00 1840.00 1008.00 L 1840.00 1028.00 L1760.00 1028.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='1760' y='1000' width='80' height='112' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='1760.000000' y1='1028.000000' x2='1840.000000' y2='1028.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1776.000000' y1='1028.000000' x2='1776.000000' y2='1112.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1828.000000' y1='1028.000000' x2='1828.000000' y2='1112.000000' style='stroke:#626e5f'/>
+<a xlink:href='#acl'><text x='1789' y='1020'>acl</text><title>Sub-document acl</title></a>
+  <a xlink:href='#acl.mac_acl'><text id='acl.mac_acl' x='1779' y='1047'>mac_acl</text><title>mac_acl
+list</title></a>
+  <a xlink:href='#acl.mac_ace'><text id='acl.mac_ace' x='1779' y='1063'>mac_ace</text><title>mac_ace
+list</title></a>
+  <a xlink:href='#acl.ipv4_acl'><text id='acl.ipv4_acl' x='1779' y='1079'>ipv4_acl</text><title>ipv4_acl
+list</title></a>
+  <a xlink:href='#acl.ipv4_ace'><text id='acl.ipv4_ace' x='1779' y='1095'>ipv4_ace</text><title>ipv4_ace
+list</title></a>
+
+<!-- ============= Table 'ipv4_ace' ============= -->
+<rect class='table' x='1904' y='1000' width='160' height='400' rx='8' ry='8' style='stroke:none'/>
+<path d='M 1904.00 1028.00 L 1904.00 1008.00 Q 1904.00 1000.00 1912.00 1000.00 L 2056.00 1000.00 Q 2064.00 1000.00 2064.00 1008.00 L 2064.00 1028.00 L1904.00 1028.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='1904' y='1000' width='160' height='400' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='1904.000000' y1='1028.000000' x2='2064.000000' y2='1028.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1920.000000' y1='1028.000000' x2='1920.000000' y2='1400.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='2052.000000' y1='1028.000000' x2='2052.000000' y2='1400.000000' style='stroke:#626e5f'/>
+<a xlink:href='#ipv4_ace'><text x='1959' y='1020'>ipv4_ace</text><title>Sub-document ipv4_ace</title></a>
+  <a xlink:href='#ipv4_ace.acl_name'><text id='ipv4_ace.acl_name' x='1923' y='1047'>acl_name</text><title>acl_name
+string</title></a>
+  <a xlink:href='#ipv4_ace.sequence'><text id='ipv4_ace.sequence' x='1923' y='1063'>sequence</text><title>sequence
+double</title></a>
+  <a xlink:href='#ipv4_ace.method'><text id='ipv4_ace.method' x='1923' y='1079'>method</text><title>method
+double</title></a>
+  <a xlink:href='#ipv4_ace.action'><text id='ipv4_ace.action' x='1923' y='1095'>action</text><title>action
+double</title></a>
+  <a xlink:href='#ipv4_ace.protocol'><text id='ipv4_ace.protocol' x='1923' y='1111'>protocol</text><title>protocol
+double</title></a>
+  <a xlink:href='#ipv4_ace.destination_ip'><text id='ipv4_ace.destination_ip' x='1923' y='1127'>destination_ip</text><title>destination_ip
+string</title></a>
+  <a xlink:href='#ipv4_ace.destination_mask'><text id='ipv4_ace.destination_mask' x='1923' y='1143'>destination_mask</text><title>destination_mask
+string</title></a>
+  <a xlink:href='#ipv4_ace.source_ip'><text id='ipv4_ace.source_ip' x='1923' y='1159'>source_ip</text><title>source_ip
+string</title></a>
+  <a xlink:href='#ipv4_ace.source_mask'><text id='ipv4_ace.source_mask' x='1923' y='1175'>source_mask</text><title>source_mask
+string</title></a>
+  <a xlink:href='#ipv4_ace.type_of_service'><text id='ipv4_ace.type_of_service' x='1923' y='1191'>type_of_service</text><title>type_of_service
+double</title></a>
+  <a xlink:href='#ipv4_ace.icmp_type'><text id='ipv4_ace.icmp_type' x='1923' y='1207'>icmp_type</text><title>icmp_type
+double</title></a>
+  <a xlink:href='#ipv4_ace.icmp_code'><text id='ipv4_ace.icmp_code' x='1923' y='1223'>icmp_code</text><title>icmp_code
+double</title></a>
+  <a xlink:href='#ipv4_ace.source_port_first'><text id='ipv4_ace.source_port_first' x='1923' y='1239'>source_port_first</text><title>source_port_first
+double</title></a>
+  <a xlink:href='#ipv4_ace.source_port_second'><text id='ipv4_ace.source_port_second' x='1923' y='1255'>source_port_second</text><title>source_port_second
+double</title></a>
+  <a xlink:href='#ipv4_ace.destination_port_first'><text id='ipv4_ace.destination_port_first' x='1923' y='1271'>destination_port_first</text><title>destination_port_first
+double</title></a>
+  <a xlink:href='#ipv4_ace.destination_port_second'><text id='ipv4_ace.destination_port_second' x='1923' y='1287'>destination_port_second</text><title>destination_port_second
+double</title></a>
+  <a xlink:href='#ipv4_ace.tcp_flag_urg'><text id='ipv4_ace.tcp_flag_urg' x='1923' y='1303'>tcp_flag_urg</text><title>tcp_flag_urg
+double</title></a>
+  <a xlink:href='#ipv4_ace.tcp_flag_ack'><text id='ipv4_ace.tcp_flag_ack' x='1923' y='1319'>tcp_flag_ack</text><title>tcp_flag_ack
+double</title></a>
+  <a xlink:href='#ipv4_ace.tcp_flag_psh'><text id='ipv4_ace.tcp_flag_psh' x='1923' y='1335'>tcp_flag_psh</text><title>tcp_flag_psh
+double</title></a>
+  <a xlink:href='#ipv4_ace.tcp_flag_rst'><text id='ipv4_ace.tcp_flag_rst' x='1923' y='1351'>tcp_flag_rst</text><title>tcp_flag_rst
+double</title></a>
+  <a xlink:href='#ipv4_ace.tcp_flag_syn'><text id='ipv4_ace.tcp_flag_syn' x='1923' y='1367'>tcp_flag_syn</text><title>tcp_flag_syn
+double</title></a>
+  <a xlink:href='#ipv4_ace.tcp_flag_fin'><text id='ipv4_ace.tcp_flag_fin' x='1923' y='1383'>tcp_flag_fin</text><title>tcp_flag_fin
+double</title></a>
+
+<!-- ============= Table 'settings' ============= -->
+<rect class='table' x='1904' y='248' width='144' height='128' rx='8' ry='8' style='stroke:none'/>
+<path d='M 1904.00 276.00 L 1904.00 256.00 Q 1904.00 248.00 1912.00 248.00 L 2040.00 248.00 Q 2048.00 248.00 2048.00 256.00 L 2048.00 276.00 L1904.00 276.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='1904' y='248' width='144' height='128' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='1904.000000' y1='276.000000' x2='2048.000000' y2='276.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1920.000000' y1='276.000000' x2='1920.000000' y2='376.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='2036.000000' y1='276.000000' x2='2036.000000' y2='376.000000' style='stroke:#626e5f'/>
+<a xlink:href='#settings'><text x='1955' y='268'>settings</text><title>Sub-document settings</title></a>
+  <a xlink:href='#settings.enable'><text id='settings.enable' x='1923' y='295'>enable</text><title>enable
+boolean</title></a>
+  <a xlink:href='#settings.transmission_interval'><text id='settings.transmission_interval' x='1923' y='311'>transmission_interval</text><title>transmission_interval
+double</title></a>
+  <a xlink:href='#settings.holdtime_multiplier'><text id='settings.holdtime_multiplier' x='1923' y='327'>holdtime_multiplier</text><title>holdtime_multiplier
+double</title></a>
+  <a xlink:href='#settings.reinitialization_delay'><text id='settings.reinitialization_delay' x='1923' y='343'>reinitialization_delay</text><title>reinitialization_delay
+double</title></a>
+  <a xlink:href='#settings.transmit_delay'><text id='settings.transmit_delay' x='1923' y='359'>transmit_delay</text><title>transmit_delay
+double</title></a>
+
+<!-- ============= Table 'vlan' ============= -->
+<rect class='table' x='1760' y='808' width='64' height='64' rx='8' ry='8' style='stroke:none'/>
+<path d='M 1760.00 836.00 L 1760.00 816.00 Q 1760.00 808.00 1768.00 808.00 L 1816.00 808.00 Q 1824.00 808.00 1824.00 816.00 L 1824.00 836.00 L1760.00 836.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='1760' y='808' width='64' height='64' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='1760.000000' y1='836.000000' x2='1824.000000' y2='836.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1776.000000' y1='836.000000' x2='1776.000000' y2='872.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1812.000000' y1='836.000000' x2='1812.000000' y2='872.000000' style='stroke:#626e5f'/>
+<a xlink:href='#vlan'><text x='1778' y='828'>vlan</text><title>Sub-document vlan</title></a>
+  <a xlink:href='#vlan.voice'><text id='vlan.voice' x='1779' y='855'>voice</text><title>voice
+map</title></a>
+
+<!-- ============= Table 'voice' ============= -->
+<rect class='table' x='1888' y='72' width='96' height='144' rx='8' ry='8' style='stroke:none'/>
+<path d='M 1888.00 100.00 L 1888.00 80.00 Q 1888.00 72.00 1896.00 72.00 L 1976.00 72.00 Q 1984.00 72.00 1984.00 80.00 L 1984.00 100.00 L1888.00 100.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='1888' y='72' width='96' height='144' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='1888.000000' y1='100.000000' x2='1984.000000' y2='100.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1904.000000' y1='100.000000' x2='1904.000000' y2='216.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1972.000000' y1='100.000000' x2='1972.000000' y2='216.000000' style='stroke:#626e5f'/>
+<a xlink:href='#voice'><text x='1919' y='92'>voice</text><title>Sub-document voice</title></a>
+  <a xlink:href='#voice.enable'><text id='voice.enable' x='1907' y='119'>enable</text><title>enable
+boolean</title></a>
+  <a xlink:href='#voice.vlan_id'><text id='voice.vlan_id' x='1907' y='135'>vlan_id</text><title>vlan_id
+double</title></a>
+  <a xlink:href='#voice.remark'><text id='voice.remark' x='1907' y='151'>remark</text><title>remark
+boolean</title></a>
+  <a xlink:href='#voice.remark_cos'><text id='voice.remark_cos' x='1907' y='167'>remark_cos</text><title>remark_cos
+double</title></a>
+  <a xlink:href='#voice.aging_time'><text id='voice.aging_time' x='1907' y='183'>aging_time</text><title>aging_time
+double</title></a>
+  <a xlink:href='#voice.oui'><text id='voice.oui' x='1907' y='199'>oui</text><title>oui
+list</title></a>
+
+<!-- ============= Table 'oui' ============= -->
+<rect class='table' x='2048' y='72' width='96' height='112' rx='8' ry='8' style='stroke:none'/>
+<path d='M 2048.00 100.00 L 2048.00 80.00 Q 2048.00 72.00 2056.00 72.00 L 2136.00 72.00 Q 2144.00 72.00 2144.00 80.00 L 2144.00 100.00 L2048.00 100.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='2048' y='72' width='96' height='112' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='2048.000000' y1='100.000000' x2='2144.000000' y2='100.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='2064.000000' y1='100.000000' x2='2064.000000' y2='184.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='2132.000000' y1='100.000000' x2='2132.000000' y2='184.000000' style='stroke:#626e5f'/>
+<a xlink:href='#oui'><text x='2084' y='92'>oui</text><title>Sub-document oui</title></a>
+  <a xlink:href='#oui.id'><text id='oui.id' x='2067' y='119'>id</text><title>id
+double</title></a>
+  <a xlink:href='#oui.address'><text id='oui.address' x='2067' y='135'>address</text><title>address
+string</title></a>
+  <a xlink:href='#oui.description'><text id='oui.description' x='2067' y='151'>description</text><title>description
+string</title></a>
+  <a xlink:href='#oui.method'><text id='oui.method' x='2067' y='167'>method</text><title>method
+double</title></a>
+
+<!-- ============= Table 'radius' ============= -->
+<rect class='table' x='2320' y='1352' width='64' height='96' rx='8' ry='8' style='stroke:none'/>
+<path d='M 2320.00 1380.00 L 2320.00 1360.00 Q 2320.00 1352.00 2328.00 1352.00 L 2376.00 1352.00 Q 2384.00 1352.00 2384.00 1360.00 L 2384.00 1380.00 L2320.00 1380.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='2320' y='1352' width='64' height='96' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='2320.000000' y1='1380.000000' x2='2384.000000' y2='1380.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='2336.000000' y1='1380.000000' x2='2336.000000' y2='1448.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='2372.000000' y1='1380.000000' x2='2372.000000' y2='1448.000000' style='stroke:#626e5f'/>
+<a xlink:href='#radius'><text x='2334' y='1372'>radius</text><title>Sub-document radius</title></a>
+  <a xlink:href='#radius.addr'><text id='radius.addr' x='2339' y='1399'>addr</text><title>addr
+string</title></a>
+  <a xlink:href='#radius.secret'><text id='radius.secret' x='2339' y='1415'>secret</text><title>secret
+string</title></a>
+  <a xlink:href='#radius.port'><text id='radius.port' x='2339' y='1431'>port</text><title>port
+double</title></a>
+
+<!-- ============= Table 'ssid' ============= -->
+<rect class='table' x='2144' y='1480' width='48' height='48' rx='8' ry='8' style='stroke:none'/>
+<path d='M 2144.00 1508.00 L 2144.00 1488.00 Q 2144.00 1480.00 2152.00 1480.00 L 2184.00 1480.00 Q 2192.00 1480.00 2192.00 1488.00 L 2192.00 1508.00 L2144.00 1508.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='2144' y='1480' width='48' height='48' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='2144.000000' y1='1508.000000' x2='2192.000000' y2='1508.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='2160.000000' y1='1508.000000' x2='2160.000000' y2='1528.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='2180.000000' y1='1508.000000' x2='2180.000000' y2='1528.000000' style='stroke:#626e5f'/>
+<a xlink:href='#ssid'><text x='2155' y='1500'>ssid</text><title>Sub-document ssid</title></a>
+
+<!-- ============= Table 'portal' ============= -->
+<rect class='table' x='2144' y='1560' width='144' height='448' rx='8' ry='8' style='stroke:none'/>
+<path d='M 2144.00 1588.00 L 2144.00 1568.00 Q 2144.00 1560.00 2152.00 1560.00 L 2280.00 1560.00 Q 2288.00 1560.00 2288.00 1568.00 L 2288.00 1588.00 L2144.00 1588.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='2144' y='1560' width='144' height='448' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='2144.000000' y1='1588.000000' x2='2288.000000' y2='1588.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='2160.000000' y1='1588.000000' x2='2160.000000' y2='2008.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='2276.000000' y1='1588.000000' x2='2276.000000' y2='2008.000000' style='stroke:#626e5f'/>
+<a xlink:href='#portal'><text x='2198' y='1580'>portal</text><title>Sub-document portal</title></a>
+  <a xlink:href='#portal.accounting_enable'><text id='portal.accounting_enable' x='2163' y='1607'>accounting_enable</text><title>accounting_enable
+double</title></a>
+  <a xlink:href='#portal.radius_secret'><text id='portal.radius_secret' x='2163' y='1623'>radius_secret</text><title>radius_secret
+string</title></a>
+  <a xlink:href='#portal.account_server'><text id='portal.account_server' x='2163' y='1639'>account_server</text><title>account_server
+string</title></a>
+  <a xlink:href='#portal.accounting_time'><text id='portal.accounting_time' x='2163' y='1655'>accounting_time</text><title>accounting_time
+double</title></a>
+  <a xlink:href='#portal.login_type'><text id='portal.login_type' x='2163' y='1671'>login_type</text><title>login_type
+double</title></a>
+  <a xlink:href='#portal.external_server'><text id='portal.external_server' x='2163' y='1687'>external_server</text><title>external_server
+string</title></a>
+  <a xlink:href='#portal.idle_timeout_enable'><text id='portal.idle_timeout_enable' x='2163' y='1703'>idle_timeout_enable</text><title>idle_timeout_enable
+double</title></a>
+  <a xlink:href='#portal.session_timeout'><text id='portal.session_timeout' x='2163' y='1719'>session_timeout</text><title>session_timeout
+double</title></a>
+  <a xlink:href='#portal.external_secret'><text id='portal.external_secret' x='2163' y='1735'>external_secret</text><title>external_secret
+string</title></a>
+  <a xlink:href='#portal.radius_server'><text id='portal.radius_server' x='2163' y='1751'>radius_server</text><title>radius_server
+string</title></a>
+  <a xlink:href='#portal.session_timeout_enable'><text id='portal.session_timeout_enable' x='2163' y='1767'>session_timeout_enable</text><title>session_timeout_enable
+double</title></a>
+  <a xlink:href='#portal.accounting_secret'><text id='portal.accounting_secret' x='2163' y='1783'>accounting_secret</text><title>accounting_secret
+string</title></a>
+  <a xlink:href='#portal.radius_port'><text id='portal.radius_port' x='2163' y='1799'>radius_port</text><title>radius_port
+double</title></a>
+  <a xlink:href='#portal.radius_server2'><text id='portal.radius_server2' x='2163' y='1815'>radius_server2</text><title>radius_server2
+string</title></a>
+  <a xlink:href='#portal.radius_secret2'><text id='portal.radius_secret2' x='2163' y='1831'>radius_secret2</text><title>radius_secret2
+string</title></a>
+  <a xlink:href='#portal.radius_port2'><text id='portal.radius_port2' x='2163' y='1847'>radius_port2</text><title>radius_port2
+double</title></a>
+  <a xlink:href='#portal.https_enable'><text id='portal.https_enable' x='2163' y='1863'>https_enable</text><title>https_enable
+double</title></a>
+  <a xlink:href='#portal.accounting_port'><text id='portal.accounting_port' x='2163' y='1879'>accounting_port</text><title>accounting_port
+double</title></a>
+  <a xlink:href='#portal.port'><text id='portal.port' x='2163' y='1895'>port</text><title>port
+double</title></a>
+  <a xlink:href='#portal.userurl'><text id='portal.userurl' x='2163' y='1911'>userurl</text><title>userurl
+string</title></a>
+  <a xlink:href='#portal.idle_timeout'><text id='portal.idle_timeout' x='2163' y='1927'>idle_timeout</text><title>idle_timeout
+double</title></a>
+  <a xlink:href='#portal.walled_garden_enable'><text id='portal.walled_garden_enable' x='2163' y='1943'>walled_garden_enable</text><title>walled_garden_enable
+double</title></a>
+  <a xlink:href='#portal.walled_garden_pages'><text id='portal.walled_garden_pages' x='2163' y='1959'>walled_garden_pages</text><title>walled_garden_pages
+string</title></a>
+  <a xlink:href='#portal.auth_type'><text id='portal.auth_type' x='2163' y='1975'>auth_type</text><title>auth_type
+double</title></a>
+  <a xlink:href='#portal.enable'><text id='portal.enable' x='2163' y='1991'>enable</text><title>enable
+double</title></a>
+
+<!-- ============= Table 'org' ============= -->
+<rect class='table' x='1280' y='1560' width='96' height='224' rx='8' ry='8' style='stroke:none'/>
+<path d='M 1280.00 1588.00 L 1280.00 1568.00 Q 1280.00 1560.00 1288.00 1560.00 L 1368.00 1560.00 Q 1376.00 1560.00 1376.00 1568.00 L 1376.00 1588.00 L1280.00 1588.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='1280' y='1560' width='96' height='224' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='1280.000000' y1='1588.000000' x2='1376.000000' y2='1588.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1296.000000' y1='1588.000000' x2='1296.000000' y2='1784.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1364.000000' y1='1588.000000' x2='1364.000000' y2='1784.000000' style='stroke:#626e5f'/>
+<a xlink:href='#org'><text x='1316' y='1580'>org</text><title>Collection ezmcloud.org</title></a>
+  <use id='nn' x='1282' y='1597' xlink:href='#nn'/><a xlink:href='#org._id'><use id='pk' x='1282' y='1596' xlink:href='#pk'/><title>Pk _id_ ( _id ) </title></a>
+<a xlink:href='#org._id'><text id='ezmcloud.org._id' x='1299' y='1607'>_id</text><title>_id
+* oid</title></a>
+  <use id='nn' x='1282' y='1613' xlink:href='#nn'/><a xlink:href='#org.name'><text id='ezmcloud.org.name' x='1299' y='1623'>name</text><title>name
+* string</title></a>
+  <use id='nn' x='1282' y='1629' xlink:href='#nn'/><a xlink:href='#org.creator'><text id='ezmcloud.org.creator' x='1299' y='1639'>creator</text><title>creator
+* string</title></a>
+  <use id='nn' x='1282' y='1645' xlink:href='#nn'/><a xlink:href='#org.description'><text id='ezmcloud.org.description' x='1299' y='1655'>description</text><title>description
+* string</title></a>
+  <use id='nn' x='1282' y='1661' xlink:href='#nn'/><a xlink:href='#org.license'><text id='ezmcloud.org.license' x='1299' y='1671' onmouseover="hghl(['license_JSon'])" onmouseout="uhghl(['license_JSon'])">license</text><title>license
+* map</title></a>
+  <a xlink:href='#org.photo'><text id='ezmcloud.org.photo' x='1299' y='1687'>photo</text><title>photo
+string</title></a>
+  <a xlink:href='#org.created_at'><text id='ezmcloud.org.created_at' x='1299' y='1703'>created_at</text><title>created_at
+string</title></a>
+  <a xlink:href='#org.updated_at'><text id='ezmcloud.org.updated_at' x='1299' y='1719'>updated_at</text><title>updated_at
+string</title></a>
+  <a xlink:href='#org.user_id_list'><text id='ezmcloud.org.user_id_list' x='1299' y='1735'>user_id_list</text><title>user_id_list
+array</title></a>
+  <a xlink:href='#org.networks'><text id='ezmcloud.org.networks' x='1299' y='1751' onmouseover="hghl(['networks_JSon'])" onmouseout="uhghl(['networks_JSon'])">networks</text><title>networks
+list</title></a>
+  <a xlink:href='#org.inventory'><text id='ezmcloud.org.inventory' x='1299' y='1767' onmouseover="hghl(['inventory_JSon'])" onmouseout="uhghl(['inventory_JSon'])">inventory</text><title>inventory
+list</title></a>
+
+<!-- ============= Table 'inventory' ============= -->
+<rect class='table' x='1440' y='1768' width='96' height='80' rx='8' ry='8' style='stroke:none'/>
+<path d='M 1440.00 1796.00 L 1440.00 1776.00 Q 1440.00 1768.00 1448.00 1768.00 L 1528.00 1768.00 Q 1536.00 1768.00 1536.00 1776.00 L 1536.00 1796.00 L1440.00 1796.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='1440' y='1768' width='96' height='80' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='1440.000000' y1='1796.000000' x2='1536.000000' y2='1796.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1456.000000' y1='1796.000000' x2='1456.000000' y2='1848.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1524.000000' y1='1796.000000' x2='1524.000000' y2='1848.000000' style='stroke:#626e5f'/>
+<a xlink:href='#inventory'><text x='1461' y='1788'>inventory</text><title>Sub-document inventory</title></a>
+  <a xlink:href='#inventory.description'><text id='inventory.description' x='1459' y='1815'>description</text><title>description
+string</title></a>
+  <a xlink:href='#inventory.mac'><text id='inventory.mac' x='1459' y='1831'>mac</text><title>mac
+string</title></a>
+
+<!-- ============= Table 'lldp' ============= -->
+<rect class='table' x='1760' y='904' width='80' height='64' rx='8' ry='8' style='stroke:none'/>
+<path d='M 1760.00 932.00 L 1760.00 912.00 Q 1760.00 904.00 1768.00 904.00 L 1832.00 904.00 Q 1840.00 904.00 1840.00 912.00 L 1840.00 932.00 L1760.00 932.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='1760' y='904' width='80' height='64' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='1760.000000' y1='932.000000' x2='1840.000000' y2='932.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1776.000000' y1='932.000000' x2='1776.000000' y2='968.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1828.000000' y1='932.000000' x2='1828.000000' y2='968.000000' style='stroke:#626e5f'/>
+<a xlink:href='#lldp'><text x='1787' y='924'>lldp</text><title>Sub-document lldp</title></a>
+  <a xlink:href='#lldp.settings'><text id='lldp.settings' x='1779' y='951'>settings</text><title>settings
+map</title></a>
+
+<!-- ============= Table 'nas' ============= -->
+<rect class='table' x='2144' y='2040' width='96' height='144' rx='8' ry='8' style='stroke:none'/>
+<path d='M 2144.00 2068.00 L 2144.00 2048.00 Q 2144.00 2040.00 2152.00 2040.00 L 2232.00 2040.00 Q 2240.00 2040.00 2240.00 2048.00 L 2240.00 2068.00 L2144.00 2068.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='2144' y='2040' width='96' height='144' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='2144.000000' y1='2068.000000' x2='2240.000000' y2='2068.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='2160.000000' y1='2068.000000' x2='2160.000000' y2='2184.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='2228.000000' y1='2068.000000' x2='2228.000000' y2='2184.000000' style='stroke:#626e5f'/>
+<a xlink:href='#nas'><text x='2180' y='2060'>nas</text><title>Sub-document nas</title></a>
+  <a xlink:href='#nas.port'><text id='nas.port' x='2163' y='2087'>port</text><title>port
+double</title></a>
+  <a xlink:href='#nas.id'><text id='nas.id' x='2163' y='2103'>id</text><title>id
+string</title></a>
+  <a xlink:href='#nas.port_enable'><text id='nas.port_enable' x='2163' y='2119'>port_enable</text><title>port_enable
+double</title></a>
+  <a xlink:href='#nas.ip_enable'><text id='nas.ip_enable' x='2163' y='2135'>ip_enable</text><title>ip_enable
+double</title></a>
+  <a xlink:href='#nas.id_enable'><text id='nas.id_enable' x='2163' y='2151'>id_enable</text><title>id_enable
+double</title></a>
+  <a xlink:href='#nas.ip'><text id='nas.ip' x='2163' y='2167'>ip</text><title>ip
+string</title></a>
+
+<!-- ============= Table 'wpa' ============= -->
+<rect class='table' x='2144' y='1352' width='112' height='96' rx='8' ry='8' style='stroke:none'/>
+<path d='M 2144.00 1380.00 L 2144.00 1360.00 Q 2144.00 1352.00 2152.00 1352.00 L 2248.00 1352.00 Q 2256.00 1352.00 2256.00 1360.00 L 2256.00 1380.00 L2144.00 1380.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='2144' y='1352' width='112' height='96' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='2144.000000' y1='1380.000000' x2='2256.000000' y2='1380.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='2160.000000' y1='1380.000000' x2='2160.000000' y2='1448.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='2244.000000' y1='1380.000000' x2='2244.000000' y2='1448.000000' style='stroke:#626e5f'/>
+<a xlink:href='#wpa'><text x='2186' y='1372'>wpa</text><title>Sub-document wpa</title></a>
+  <a xlink:href='#wpa.radius'><text id='wpa.radius' x='2163' y='1399'>radius</text><title>radius
+map</title></a>
+  <a xlink:href='#wpa.enc_mode'><text id='wpa.enc_mode' x='2163' y='1415'>enc_mode</text><title>enc_mode
+double</title></a>
+  <a xlink:href='#wpa.group_key_int'><text id='wpa.group_key_int' x='2163' y='1431'>group_key_int</text><title>group_key_int
+double</title></a>
+
+<!-- ============= Table 'acc' ============= -->
+<rect class='table' x='2144' y='1032' width='80' height='128' rx='8' ry='8' style='stroke:none'/>
+<path d='M 2144.00 1060.00 L 2144.00 1040.00 Q 2144.00 1032.00 2152.00 1032.00 L 2216.00 1032.00 Q 2224.00 1032.00 2224.00 1040.00 L 2224.00 1060.00 L2144.00 1060.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='2144' y='1032' width='80' height='128' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='2144.000000' y1='1060.000000' x2='2224.000000' y2='1060.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='2160.000000' y1='1060.000000' x2='2160.000000' y2='1160.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='2212.000000' y1='1060.000000' x2='2212.000000' y2='1160.000000' style='stroke:#626e5f'/>
+<a xlink:href='#acc'><text x='2172' y='1052'>acc</text><title>Sub-document acc</title></a>
+  <a xlink:href='#acc.addr'><text id='acc.addr' x='2163' y='1079'>addr</text><title>addr
+string</title></a>
+  <a xlink:href='#acc.secret'><text id='acc.secret' x='2163' y='1095'>secret</text><title>secret
+string</title></a>
+  <a xlink:href='#acc.interval'><text id='acc.interval' x='2163' y='1111'>interval</text><title>interval
+double</title></a>
+  <a xlink:href='#acc.enable'><text id='acc.enable' x='2163' y='1127'>enable</text><title>enable
+double</title></a>
+  <a xlink:href='#acc.port'><text id='acc.port' x='2163' y='1143'>port</text><title>port
+double</title></a>
+
+<!-- ============= Table 'wlan' ============= -->
+<rect class='table' x='1968' y='1560' width='112' height='336' rx='8' ry='8' style='stroke:none'/>
+<path d='M 1968.00 1588.00 L 1968.00 1568.00 Q 1968.00 1560.00 1976.00 1560.00 L 2072.00 1560.00 Q 2080.00 1560.00 2080.00 1568.00 L 2080.00 1588.00 L1968.00 1588.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='1968' y='1560' width='112' height='336' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='1968.000000' y1='1588.000000' x2='2080.000000' y2='1588.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1984.000000' y1='1588.000000' x2='1984.000000' y2='1896.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='2068.000000' y1='1588.000000' x2='2068.000000' y2='1896.000000' style='stroke:#626e5f'/>
+<a xlink:href='#wlan'><text x='2009' y='1580'>wlan</text><title>Sub-document wlan</title></a>
+  <a xlink:href='#wlan.ssid'><text id='wlan.ssid' x='1987' y='1607'>ssid</text><title>ssid
+string</title></a>
+  <a xlink:href='#wlan.wep'><text id='wlan.wep' x='1987' y='1623'>wep</text><title>wep
+map</title></a>
+  <a xlink:href='#wlan.wpa'><text id='wlan.wpa' x='1987' y='1639'>wpa</text><title>wpa
+map</title></a>
+  <a xlink:href='#wlan.index'><text id='wlan.index' x='1987' y='1655'>index</text><title>index
+double</title></a>
+  <a xlink:href='#wlan.supr_ssid'><text id='wlan.supr_ssid' x='1987' y='1671'>supr_ssid</text><title>supr_ssid
+double</title></a>
+  <a xlink:href='#wlan.acc'><text id='wlan.acc' x='1987' y='1687'>acc</text><title>acc
+map</title></a>
+  <a xlink:href='#wlan.isolation'><text id='wlan.isolation' x='1987' y='1703'>isolation</text><title>isolation
+double</title></a>
+  <a xlink:href='#wlan.roaming'><text id='wlan.roaming' x='1987' y='1719'>roaming</text><title>roaming
+map</title></a>
+  <a xlink:href='#wlan.nas'><text id='wlan.nas' x='1987' y='1735'>nas</text><title>nas
+map</title></a>
+  <a xlink:href='#wlan.sec_mode'><text id='wlan.sec_mode' x='1987' y='1751'>sec_mode</text><title>sec_mode
+double</title></a>
+  <a xlink:href='#wlan.downloadlimit'><text id='wlan.downloadlimit' x='1987' y='1767'>downloadlimit</text><title>downloadlimit
+double</title></a>
+  <a xlink:href='#wlan.layer2Isolation'><text id='wlan.layer2Isolation' x='1987' y='1783'>layer2Isolation</text><title>layer2Isolation
+double</title></a>
+  <a xlink:href='#wlan.uploadlimit'><text id='wlan.uploadlimit' x='1987' y='1799'>uploadlimit</text><title>uploadlimit
+double</title></a>
+  <a xlink:href='#wlan.enable'><text id='wlan.enable' x='1987' y='1815'>enable</text><title>enable
+double</title></a>
+  <a xlink:href='#wlan.vlan'><text id='wlan.vlan' x='1987' y='1831'>vlan</text><title>vlan
+double</title></a>
+  <a xlink:href='#wlan.sta_sep'><text id='wlan.sta_sep' x='1987' y='1847'>sta_sep</text><title>sta_sep
+double</title></a>
+  <a xlink:href='#wlan.portal'><text id='wlan.portal' x='1987' y='1863'>portal</text><title>portal
+map</title></a>
+  <a xlink:href='#wlan.scheduling'><text id='wlan.scheduling' x='1987' y='1879'>scheduling</text><title>scheduling
+map</title></a>
+
+<!-- ============= Table 'roaming' ============= -->
+<rect class='table' x='2144' y='2216' width='96' height='80' rx='8' ry='8' style='stroke:none'/>
+<path d='M 2144.00 2244.00 L 2144.00 2224.00 Q 2144.00 2216.00 2152.00 2216.00 L 2232.00 2216.00 Q 2240.00 2216.00 2240.00 2224.00 L 2240.00 2244.00 L2144.00 2244.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='2144' y='2216' width='96' height='80' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='2144.000000' y1='2244.000000' x2='2240.000000' y2='2244.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='2160.000000' y1='2244.000000' x2='2160.000000' y2='2296.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='2228.000000' y1='2244.000000' x2='2228.000000' y2='2296.000000' style='stroke:#626e5f'/>
+<a xlink:href='#roaming'><text x='2168' y='2236'>roaming</text><title>Sub-document roaming</title></a>
+  <a xlink:href='#roaming.adv_search'><text id='roaming.adv_search' x='2163' y='2263'>adv_search</text><title>adv_search
+double</title></a>
+  <a xlink:href='#roaming.enable'><text id='roaming.enable' x='2163' y='2279'>enable</text><title>enable
+double</title></a>
+
+<!-- ============= Table 'scheduling' ============= -->
+<rect class='table' x='2144' y='920' width='64' height='80' rx='8' ry='8' style='stroke:none'/>
+<path d='M 2144.00 948.00 L 2144.00 928.00 Q 2144.00 920.00 2152.00 920.00 L 2200.00 920.00 Q 2208.00 920.00 2208.00 928.00 L 2208.00 948.00 L2144.00 948.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='2144' y='920' width='64' height='80' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='2144.000000' y1='948.000000' x2='2208.000000' y2='948.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='2160.000000' y1='948.000000' x2='2160.000000' y2='1000.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='2196.000000' y1='948.000000' x2='2196.000000' y2='1000.000000' style='stroke:#626e5f'/>
+<a xlink:href='#scheduling'><text x='2147' y='940'>scheduling</text><title>Sub-document scheduling</title></a>
+  <a xlink:href='#scheduling.days'><text id='scheduling.days' x='2163' y='967'>days</text><title>days
+map</title></a>
+  <a xlink:href='#scheduling.enable'><text id='scheduling.enable' x='2163' y='983'>enable</text><title>enable
+double</title></a>
+
+<!-- ============= Table 'days' ============= -->
+<rect class='table' x='2272' y='920' width='96' height='160' rx='8' ry='8' style='stroke:none'/>
+<path d='M 2272.00 948.00 L 2272.00 928.00 Q 2272.00 920.00 2280.00 920.00 L 2360.00 920.00 Q 2368.00 920.00 2368.00 928.00 L 2368.00 948.00 L2272.00 948.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='2272' y='920' width='96' height='160' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='2272.000000' y1='948.000000' x2='2368.000000' y2='948.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='2288.000000' y1='948.000000' x2='2288.000000' y2='1080.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='2356.000000' y1='948.000000' x2='2356.000000' y2='1080.000000' style='stroke:#626e5f'/>
+<a xlink:href='#days'><text x='2305' y='940'>days</text><title>Sub-document days</title></a>
+  <a xlink:href='#days.sunday'><text id='days.sunday' x='2291' y='967'>sunday</text><title>sunday
+map</title></a>
+  <a xlink:href='#days.monday'><text id='days.monday' x='2291' y='983'>monday</text><title>monday
+map</title></a>
+  <a xlink:href='#days.tuesday'><text id='days.tuesday' x='2291' y='999'>tuesday</text><title>tuesday
+map</title></a>
+  <a xlink:href='#days.wednesday'><text id='days.wednesday' x='2291' y='1015'>wednesday</text><title>wednesday
+map</title></a>
+  <a xlink:href='#days.thursday'><text id='days.thursday' x='2291' y='1031'>thursday</text><title>thursday
+map</title></a>
+  <a xlink:href='#days.friday'><text id='days.friday' x='2291' y='1047'>friday</text><title>friday
+map</title></a>
+  <a xlink:href='#days.saturday'><text id='days.saturday' x='2291' y='1063'>saturday</text><title>saturday
+map</title></a>
+
+<!-- ============= Table 'sunday' ============= -->
+<rect class='table' x='2432' y='920' width='64' height='96' rx='8' ry='8' style='stroke:none'/>
+<path d='M 2432.00 948.00 L 2432.00 928.00 Q 2432.00 920.00 2440.00 920.00 L 2488.00 920.00 Q 2496.00 920.00 2496.00 928.00 L 2496.00 948.00 L2432.00 948.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='2432' y='920' width='64' height='96' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='2432.000000' y1='948.000000' x2='2496.000000' y2='948.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='2448.000000' y1='948.000000' x2='2448.000000' y2='1016.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='2484.000000' y1='948.000000' x2='2484.000000' y2='1016.000000' style='stroke:#626e5f'/>
+<a xlink:href='#sunday'><text x='2443' y='940'>sunday</text><title>Sub-document sunday</title></a>
+  <a xlink:href='#sunday.enable'><text id='sunday.enable' x='2451' y='967'>enable</text><title>enable
+double</title></a>
+  <a xlink:href='#sunday.begin'><text id='sunday.begin' x='2451' y='983'>begin</text><title>begin
+string</title></a>
+  <a xlink:href='#sunday.end'><text id='sunday.end' x='2451' y='999'>end</text><title>end
+string</title></a>
+
+<!-- ============= Table 'qos' ============= -->
+<rect class='table' x='1760' y='1144' width='128' height='128' rx='8' ry='8' style='stroke:none'/>
+<path d='M 1760.00 1172.00 L 1760.00 1152.00 Q 1760.00 1144.00 1768.00 1144.00 L 1880.00 1144.00 Q 1888.00 1144.00 1888.00 1152.00 L 1888.00 1172.00 L1760.00 1172.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='1760' y='1144' width='128' height='128' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='1760.000000' y1='1172.000000' x2='1888.000000' y2='1172.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1776.000000' y1='1172.000000' x2='1776.000000' y2='1272.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1876.000000' y1='1172.000000' x2='1876.000000' y2='1272.000000' style='stroke:#626e5f'/>
+<a xlink:href='#qos'><text x='1812' y='1164'>qos</text><title>Sub-document qos</title></a>
+  <a xlink:href='#qos.enable'><text id='qos.enable' x='1779' y='1191'>enable</text><title>enable
+boolean</title></a>
+  <a xlink:href='#qos.scheduling_method'><text id='qos.scheduling_method' x='1779' y='1207'>scheduling_method</text><title>scheduling_method
+double</title></a>
+  <a xlink:href='#qos.trust_mode'><text id='qos.trust_mode' x='1779' y='1223'>trust_mode</text><title>trust_mode
+double</title></a>
+  <a xlink:href='#qos.cos'><text id='qos.cos' x='1779' y='1239'>cos</text><title>cos
+list</title></a>
+  <a xlink:href='#qos.dscp'><text id='qos.dscp' x='1779' y='1255'>dscp</text><title>dscp
+list</title></a>
+
+<!-- ============= Table 'switch_cfg' ============= -->
+<rect class='table' x='1616' y='1400' width='80' height='128' rx='8' ry='8' style='stroke:none'/>
+<path d='M 1616.00 1428.00 L 1616.00 1408.00 Q 1616.00 1400.00 1624.00 1400.00 L 1688.00 1400.00 Q 1696.00 1400.00 1696.00 1408.00 L 1696.00 1428.00 L1616.00 1428.00 ' style='fill:url(#tbg_c8f5bf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='1616' y='1400' width='80' height='128' rx='8' ry='8' style='fill:none;stroke:#626e5f'/>
+<line class='delim' x1='1616.000000' y1='1428.000000' x2='1696.000000' y2='1428.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1632.000000' y1='1428.000000' x2='1632.000000' y2='1528.000000' style='stroke:#626e5f'/>
+<line class='delim' x1='1684.000000' y1='1428.000000' x2='1684.000000' y2='1528.000000' style='stroke:#626e5f'/>
+<a xlink:href='#switch_cfg'><text x='1627' y='1420'>switch_cfg</text><title>Sub-document switch_cfg</title></a>
+  <a xlink:href='#switch_cfg.system'><text id='switch_cfg.system' x='1635' y='1447'>system</text><title>system
+map</title></a>
+  <a xlink:href='#switch_cfg.acl'><text id='switch_cfg.acl' x='1635' y='1463'>acl</text><title>acl
+map</title></a>
+  <a xlink:href='#switch_cfg.qos'><text id='switch_cfg.qos' x='1635' y='1479'>qos</text><title>qos
+map</title></a>
+  <a xlink:href='#switch_cfg.vlan'><text id='switch_cfg.vlan' x='1635' y='1495'>vlan</text><title>vlan
+map</title></a>
+  <a xlink:href='#switch_cfg.lldp'><text id='switch_cfg.lldp' x='1635' y='1511'>lldp</text><title>lldp
+map</title></a>
+
+<!-- ============= Table 'fingerprint' ============= -->
+<rect class='table' x='784' y='680' width='96' height='144' rx='8' ry='8' style='stroke:none'/>
+<path d='M 784.00 708.00 L 784.00 688.00 Q 784.00 680.00 792.00 680.00 L 872.00 680.00 Q 880.00 680.00 880.00 688.00 L 880.00 708.00 L784.00 708.00 ' style='fill:url(#tbg_f5ddbf);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='784' y='680' width='96' height='144' rx='8' ry='8' style='fill:none;stroke:#6e675f'/>
+<line class='delim' x1='784.000000' y1='708.000000' x2='880.000000' y2='708.000000' style='stroke:#6e675f'/>
+<line class='delim' x1='800.000000' y1='708.000000' x2='800.000000' y2='824.000000' style='stroke:#6e675f'/>
+<line class='delim' x1='868.000000' y1='708.000000' x2='868.000000' y2='824.000000' style='stroke:#6e675f'/>
+<a xlink:href='#fingerprint'><text x='803' y='700'>fingerprint</text><title>Collection ezmcloud.fingerprint</title></a>
+  <use id='nn' x='786' y='717' xlink:href='#nn'/><a xlink:href='#fingerprint._id'><use id='pk' x='786' y='716' xlink:href='#pk'/><title>Pk _id_ ( _id ) </title></a>
+<a xlink:href='#fingerprint._id'><text id='ezmcloud.fingerprint._id' x='803' y='727'>_id</text><title>_id
+* oid</title></a>
+  <use id='nn' x='786' y='733' xlink:href='#nn'/><a xlink:href='#fingerprint.mac'><text id='ezmcloud.fingerprint.mac' x='803' y='743'>mac</text><title>mac
+* string</title></a>
+  <use id='nn' x='786' y='749' xlink:href='#nn'/><a xlink:href='#fingerprint.hostname'><text id='ezmcloud.fingerprint.hostname' x='803' y='759'>hostname</text><title>hostname
+* string</title></a>
+  <use id='nn' x='786' y='765' xlink:href='#nn'/><a xlink:href='#fingerprint.os'><text id='ezmcloud.fingerprint.os' x='803' y='775'>os</text><title>os
+* string</title></a>
+  <use id='nn' x='786' y='781' xlink:href='#nn'/><a xlink:href='#fingerprint.vendor'><text id='ezmcloud.fingerprint.vendor' x='803' y='791'>vendor</text><title>vendor
+* string</title></a>
+  <use id='nn' x='786' y='797' xlink:href='#nn'/><a xlink:href='#fingerprint.last_update'><text id='ezmcloud.fingerprint.last_update' x='803' y='807'>last_update</text><title>last_update
+* string</title></a>
+
+<!-- ============= Table 'device' ============= -->
+<rect class='table' x='48' y='776' width='112' height='320' rx='8' ry='8' style='stroke:none'/>
+<path d='M 48.00 804.00 L 48.00 784.00 Q 48.00 776.00 56.00 776.00 L 152.00 776.00 Q 160.00 776.00 160.00 784.00 L 160.00 804.00 L48.00 804.00 ' style='fill:url(#tbg_bfbff5);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='48' y='776' width='112' height='320' rx='8' ry='8' style='fill:none;stroke:#5f5f6e'/>
+<line class='delim' x1='48.000000' y1='804.000000' x2='160.000000' y2='804.000000' style='stroke:#5f5f6e'/>
+<line class='delim' x1='64.000000' y1='804.000000' x2='64.000000' y2='1096.000000' style='stroke:#5f5f6e'/>
+<line class='delim' x1='148.000000' y1='804.000000' x2='148.000000' y2='1096.000000' style='stroke:#5f5f6e'/>
+<a xlink:href='#device'><text x='85' y='796'>device</text><title>Collection ezmcloud.device</title></a>
+  <use id='nn' x='50' y='813' xlink:href='#nn'/><a xlink:href='#device._id'><use id='pk' x='50' y='812' xlink:href='#pk'/><title>Pk _id_ ( _id ) </title></a>
+<a xlink:href='#device._id'><text id='ezmcloud.device._id' x='67' y='823'>_id</text><title>_id
+* oid</title></a>
+  <use id='nn' x='50' y='829' xlink:href='#nn'/><a xlink:href='#device.type'><text id='ezmcloud.device.type' x='67' y='839'>type</text><title>type
+* string</title></a>
+  <use id='nn' x='50' y='845' xlink:href='#nn'/><a xlink:href='#device.mac'><text id='ezmcloud.device.mac' x='67' y='855'>mac</text><title>mac
+* string</title></a>
+  <use id='nn' x='50' y='861' xlink:href='#nn'/><a xlink:href='#device.fw_version'><text id='ezmcloud.device.fw_version' x='67' y='871'>fw_version</text><title>fw_version
+* string</title></a>
+  <use id='nn' x='50' y='877' xlink:href='#nn'/><a xlink:href='#device.create_time'><text id='ezmcloud.device.create_time' x='67' y='887'>create_time</text><title>create_time
+* string</title></a>
+  <use id='nn' x='50' y='893' xlink:href='#nn'/><a xlink:href='#device.description'><text id='ezmcloud.device.description' x='67' y='903'>description</text><title>description
+* string</title></a>
+  <use id='nn' x='50' y='909' xlink:href='#nn'/><a xlink:href='#device.dns1'><text id='ezmcloud.device.dns1' x='67' y='919'>dns1</text><title>dns1
+* string</title></a>
+  <use id='nn' x='50' y='925' xlink:href='#nn'/><a xlink:href='#device.dns2'><text id='ezmcloud.device.dns2' x='67' y='935'>dns2</text><title>dns2
+* string</title></a>
+  <use id='nn' x='50' y='941' xlink:href='#nn'/><a xlink:href='#device.gateway'><text id='ezmcloud.device.gateway' x='67' y='951'>gateway</text><title>gateway
+* string</title></a>
+  <use id='nn' x='50' y='957' xlink:href='#nn'/><a xlink:href='#device.ip'><text id='ezmcloud.device.ip' x='67' y='967'>ip</text><title>ip
+* string</title></a>
+  <use id='nn' x='50' y='973' xlink:href='#nn'/><a xlink:href='#device.location'><text id='ezmcloud.device.location' x='67' y='983'>location</text><title>location
+* string</title></a>
+  <use id='nn' x='50' y='989' xlink:href='#nn'/><a xlink:href='#device.mask'><text id='ezmcloud.device.mask' x='67' y='999'>mask</text><title>mask
+* string</title></a>
+  <use id='nn' x='50' y='1005' xlink:href='#nn'/><a xlink:href='#device.model'><text id='ezmcloud.device.model' x='67' y='1015'>model</text><title>model
+* string</title></a>
+  <use id='nn' x='50' y='1021' xlink:href='#nn'/><a xlink:href='#device.name'><text id='ezmcloud.device.name' x='67' y='1031'>name</text><title>name
+* string</title></a>
+  <use id='nn' x='50' y='1037' xlink:href='#nn'/><a xlink:href='#device.serial_number'><text id='ezmcloud.device.serial_number' x='67' y='1047'>serial_number</text><title>serial_number
+* double</title></a>
+  <use id='nn' x='50' y='1053' xlink:href='#nn'/><a xlink:href='#device.ap'><text id='ezmcloud.device.ap' x='67' y='1063' onmouseover="hghl(['ap_JSon'])" onmouseout="uhghl(['ap_JSon'])">ap</text><title>ap
+* map</title></a>
+  <a xlink:href='#device.switch'><text id='ezmcloud.device.switch' x='67' y='1079' onmouseover="hghl(['switch_JSon'])" onmouseout="uhghl(['switch_JSon'])">switch</text><title>switch
+map</title></a>
+
+<!-- ============= Table 'override' ============= -->
+<rect class='table' x='400' y='680' width='96' height='64' rx='8' ry='8' style='stroke:none'/>
+<path d='M 400.00 708.00 L 400.00 688.00 Q 400.00 680.00 408.00 680.00 L 488.00 680.00 Q 496.00 680.00 496.00 688.00 L 496.00 708.00 L400.00 708.00 ' style='fill:url(#tbg_bfbff5);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='400' y='680' width='96' height='64' rx='8' ry='8' style='fill:none;stroke:#5f5f6e'/>
+<line class='delim' x1='400.000000' y1='708.000000' x2='496.000000' y2='708.000000' style='stroke:#5f5f6e'/>
+<line class='delim' x1='416.000000' y1='708.000000' x2='416.000000' y2='744.000000' style='stroke:#5f5f6e'/>
+<line class='delim' x1='484.000000' y1='708.000000' x2='484.000000' y2='744.000000' style='stroke:#5f5f6e'/>
+<a xlink:href='#override'><text x='424' y='700'>override</text><title>Sub-document override</title></a>
+  <use id='nn' x='402' y='717' xlink:href='#nn'/><a xlink:href='#override.radio_flag'><text id='override.radio_flag' x='419' y='727'>radio_flag</text><title>radio_flag
+* list</title></a>
+
+<!-- ============= Table 'ap' ============= -->
+<rect class='table' x='224' y='776' width='112' height='144' rx='8' ry='8' style='stroke:none'/>
+<path d='M 224.00 804.00 L 224.00 784.00 Q 224.00 776.00 232.00 776.00 L 328.00 776.00 Q 336.00 776.00 336.00 784.00 L 336.00 804.00 L224.00 804.00 ' style='fill:url(#tbg_bfbff5);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='224' y='776' width='112' height='144' rx='8' ry='8' style='fill:none;stroke:#5f5f6e'/>
+<line class='delim' x1='224.000000' y1='804.000000' x2='336.000000' y2='804.000000' style='stroke:#5f5f6e'/>
+<line class='delim' x1='240.000000' y1='804.000000' x2='240.000000' y2='920.000000' style='stroke:#5f5f6e'/>
+<line class='delim' x1='324.000000' y1='804.000000' x2='324.000000' y2='920.000000' style='stroke:#5f5f6e'/>
+<a xlink:href='#ap'><text x='270' y='796'>ap</text><title>Sub-document ap</title></a>
+  <use id='nn' x='226' y='813' xlink:href='#nn'/><a xlink:href='#ap.override'><text id='ap.override' x='243' y='823'>override</text><title>override
+* map</title></a>
+  <a xlink:href='#ap.capability_code'><text id='ap.capability_code' x='243' y='839'>capability_code</text><title>capability_code
+double</title></a>
+  <a xlink:href='#ap.sku'><text id='ap.sku' x='243' y='855'>sku</text><title>sku
+string</title></a>
+  <a xlink:href='#ap.radio_count'><text id='ap.radio_count' x='243' y='871'>radio_count</text><title>radio_count
+double</title></a>
+  <a xlink:href='#ap.cfg_capability'><text id='ap.cfg_capability' x='243' y='887'>cfg_capability</text><title>cfg_capability
+string</title></a>
+  <a xlink:href='#ap.radio_fixed'><text id='ap.radio_fixed' x='243' y='903'>radio_fixed</text><title>radio_fixed
+list</title></a>
+
+<!-- ============= Table 'radio_fixed' ============= -->
+<rect class='table' x='400' y='776' width='112' height='128' rx='8' ry='8' style='stroke:none'/>
+<path d='M 400.00 804.00 L 400.00 784.00 Q 400.00 776.00 408.00 776.00 L 504.00 776.00 Q 512.00 776.00 512.00 784.00 L 512.00 804.00 L400.00 804.00 ' style='fill:url(#tbg_bfbff5);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='400' y='776' width='112' height='128' rx='8' ry='8' style='fill:none;stroke:#5f5f6e'/>
+<line class='delim' x1='400.000000' y1='804.000000' x2='512.000000' y2='804.000000' style='stroke:#5f5f6e'/>
+<line class='delim' x1='416.000000' y1='804.000000' x2='416.000000' y2='904.000000' style='stroke:#5f5f6e'/>
+<line class='delim' x1='500.000000' y1='804.000000' x2='500.000000' y2='904.000000' style='stroke:#5f5f6e'/>
+<a xlink:href='#radio_fixed'><text x='425' y='796'>radio_fixed</text><title>Sub-document radio_fixed</title></a>
+  <a xlink:href='#radio_fixed.type'><text id='radio_fixed.type' x='419' y='823'>type</text><title>type
+double</title></a>
+  <a xlink:href='#radio_fixed.max_tx_power'><text id='radio_fixed.max_tx_power' x='419' y='839'>max_tx_power</text><title>max_tx_power
+double</title></a>
+  <a xlink:href='#radio_fixed.max_wlan'><text id='radio_fixed.max_wlan' x='419' y='855'>max_wlan</text><title>max_wlan
+double</title></a>
+  <a xlink:href='#radio_fixed.cfg_capability'><text id='radio_fixed.cfg_capability' x='419' y='871'>cfg_capability</text><title>cfg_capability
+string</title></a>
+  <a xlink:href='#radio_fixed.wlan_fixed'><text id='radio_fixed.wlan_fixed' x='419' y='887'>wlan_fixed</text><title>wlan_fixed
+list</title></a>
+
+<!-- ============= Table 'wlan_fixed' ============= -->
+<rect class='table' x='576' y='776' width='112' height='112' rx='8' ry='8' style='stroke:none'/>
+<path d='M 576.00 804.00 L 576.00 784.00 Q 576.00 776.00 584.00 776.00 L 680.00 776.00 Q 688.00 776.00 688.00 784.00 L 688.00 804.00 L576.00 804.00 ' style='fill:url(#tbg_bfbff5);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='576' y='776' width='112' height='112' rx='8' ry='8' style='fill:none;stroke:#5f5f6e'/>
+<line class='delim' x1='576.000000' y1='804.000000' x2='688.000000' y2='804.000000' style='stroke:#5f5f6e'/>
+<line class='delim' x1='592.000000' y1='804.000000' x2='592.000000' y2='888.000000' style='stroke:#5f5f6e'/>
+<line class='delim' x1='676.000000' y1='804.000000' x2='676.000000' y2='888.000000' style='stroke:#5f5f6e'/>
+<a xlink:href='#wlan_fixed'><text x='602' y='796'>wlan_fixed</text><title>Sub-document wlan_fixed</title></a>
+  <a xlink:href='#wlan_fixed.index'><text id='wlan_fixed.index' x='595' y='823'>index</text><title>index
+double</title></a>
+  <a xlink:href='#wlan_fixed.enable'><text id='wlan_fixed.enable' x='595' y='839'>enable</text><title>enable
+boolean</title></a>
+  <a xlink:href='#wlan_fixed.bssid'><text id='wlan_fixed.bssid' x='595' y='855'>bssid</text><title>bssid
+string</title></a>
+  <a xlink:href='#wlan_fixed.cfg_capability'><text id='wlan_fixed.cfg_capability' x='595' y='871'>cfg_capability</text><title>cfg_capability
+string</title></a>
+
+</g></svg></div>
+
+
+<br/><br/>
+<div class='section-header'><a name='user' onclick='window.scrollTo(584, 336);return false;' style='cursor:pointer;'><h2>Collection user</h2></a></div>
+<table class='bordered'>
+<thead>
+<tr><th colspan='4'>Columns</a></th></tr>
+</thead>
+<tbody>
+	<tr>
+		<td>*<svg width='14' height='14'><use xlink:href='#pk'/></svg></td>
+		<td><a name='user._id'>&#95;id</a></td>
+		<td> oid  AUTOINCREMENT  </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='user.email'>email</a></td>
+		<td> string   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='user.account'>account</a></td>
+		<td> map   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='user.password'>password</a></td>
+		<td> string   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='user.signup_by'>signup&#95;by</a></td>
+		<td> string   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='user.profiles'>profiles</a></td>
+		<td> map   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='user.photo'>photo</a></td>
+		<td> string   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='user.login_at'>login&#95;at</a></td>
+		<td> string   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='user.created_at'>created&#95;at</a></td>
+		<td> string   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='user.updated_at'>updated&#95;at</a></td>
+		<td> string   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='user.orgs'>orgs</a></td>
+		<td> list   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='user.networks'>networks</a></td>
+		<td> list   </td>
+		<td>  </td>
+	</tr>
+<tr><th colspan='4'>Indexes</th></tr>
+	<tr>		<td><svg width='14' height='14'><use xlink:href='#pk'/></svg></td><td>&#95;id&#95;</td>
+		<td> ON &#95;id</td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+<br/><br/>
+<div class='section-header'><a name='org' onclick='window.scrollTo(1080, 1568);return false;' style='cursor:pointer;'><h2>Collection org</h2></a></div>
+<table class='bordered'>
+<thead>
+<tr><th colspan='4'>Columns</a></th></tr>
+</thead>
+<tbody>
+	<tr>
+		<td>*<svg width='14' height='14'><use xlink:href='#pk'/></svg></td>
+		<td><a name='org._id'>&#95;id</a></td>
+		<td> oid  AUTOINCREMENT  </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='org.name'>name</a></td>
+		<td> string   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='org.creator'>creator</a></td>
+		<td> string   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='org.description'>description</a></td>
+		<td> string   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='org.license'>license</a></td>
+		<td> map   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='org.photo'>photo</a></td>
+		<td> string   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='org.created_at'>created&#95;at</a></td>
+		<td> string   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='org.updated_at'>updated&#95;at</a></td>
+		<td> string   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='org.user_id_list'>user&#95;id&#95;list</a></td>
+		<td> array   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='org.networks'>networks</a></td>
+		<td> list   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='org.inventory'>inventory</a></td>
+		<td> list   </td>
+		<td>  </td>
+	</tr>
+<tr><th colspan='4'>Indexes</th></tr>
+	<tr>		<td><svg width='14' height='14'><use xlink:href='#pk'/></svg></td><td>&#95;id&#95;</td>
+		<td> ON &#95;id</td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+<br/><br/>
+<div class='section-header'><a name='fingerprint' onclick='window.scrollTo(584, 688);return false;' style='cursor:pointer;'><h2>Collection fingerprint</h2></a></div>
+<table class='bordered'>
+<thead>
+<tr><th colspan='4'>Columns</a></th></tr>
+</thead>
+<tbody>
+	<tr>
+		<td>*<svg width='14' height='14'><use xlink:href='#pk'/></svg></td>
+		<td><a name='fingerprint._id'>&#95;id</a></td>
+		<td> oid  AUTOINCREMENT  </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='fingerprint.mac'>mac</a></td>
+		<td> string   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='fingerprint.hostname'>hostname</a></td>
+		<td> string   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='fingerprint.os'>os</a></td>
+		<td> string   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='fingerprint.vendor'>vendor</a></td>
+		<td> string   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='fingerprint.last_update'>last&#95;update</a></td>
+		<td> string   </td>
+		<td>  </td>
+	</tr>
+<tr><th colspan='4'>Indexes</th></tr>
+	<tr>		<td><svg width='14' height='14'><use xlink:href='#pk'/></svg></td><td>&#95;id&#95;</td>
+		<td> ON &#95;id</td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+<br/><br/>
+<div class='section-header'><a name='device' onclick='window.scrollTo(100, 784);return false;' style='cursor:pointer;'><h2>Collection device</h2></a></div>
+<table class='bordered'>
+<thead>
+<tr><th colspan='4'>Columns</a></th></tr>
+</thead>
+<tbody>
+	<tr>
+		<td>*<svg width='14' height='14'><use xlink:href='#pk'/></svg></td>
+		<td><a name='device._id'>&#95;id</a></td>
+		<td> oid  AUTOINCREMENT  </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='device.type'>type</a></td>
+		<td> string   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='device.mac'>mac</a></td>
+		<td> string   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='device.fw_version'>fw&#95;version</a></td>
+		<td> string   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='device.create_time'>create&#95;time</a></td>
+		<td> string   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='device.description'>description</a></td>
+		<td> string   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='device.dns1'>dns1</a></td>
+		<td> string   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='device.dns2'>dns2</a></td>
+		<td> string   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='device.gateway'>gateway</a></td>
+		<td> string   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='device.ip'>ip</a></td>
+		<td> string   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='device.location'>location</a></td>
+		<td> string   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='device.mask'>mask</a></td>
+		<td> string   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='device.model'>model</a></td>
+		<td> string   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='device.name'>name</a></td>
+		<td> string   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='device.serial_number'>serial&#95;number</a></td>
+		<td> double   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='device.ap'>ap</a></td>
+		<td> map   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='device.switch'>switch</a></td>
+		<td> map   </td>
+		<td>  </td>
+	</tr>
+<tr><th colspan='4'>Indexes</th></tr>
+	<tr>		<td><svg width='14' height='14'><use xlink:href='#pk'/></svg></td><td>&#95;id&#95;</td>
+		<td> ON &#95;id</td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+<p align='right'><a href='http://www.dbschema.com' style='color:#aaa'>Powered by DbSchema</a></p></body></html>
